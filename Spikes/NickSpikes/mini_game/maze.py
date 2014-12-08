@@ -8,6 +8,5 @@ class maze:
 		for line in self.maze:
 			print(line)
 
-	def update_maze(self, robot):
-		# robot is a robot object
-		self.maze[robot.x_pos][robot.y_pos] = 'X'
+	def update(self):
+		pass

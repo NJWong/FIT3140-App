@@ -13,8 +13,14 @@ class main:
 		self.update_maze()
 
 	def turn_robot(self, clockwise_flag):
+		# TODO include number of turns
 		self.robot.turn(clockwise_flag)
 		print('New direction: %r' % self.robot.direction)
+
+	def update_system(self):
+		# robot.update()
+		# maze.update()
+		pass
 
 	def update_maze(self):
 		self.maze.maze[self.robot.y_pos][self.robot.x_pos] = 'X'
