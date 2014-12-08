@@ -31,13 +31,14 @@ class robot:
 		else:
 			print("robot -> move_forward(): Invalid direction")
 
-	def turn(self, clockwise):
+	def turn(self, clockwise_flag):
+		# TODO include number of turns
 		current_dir = self.direction_list.index(self.direction)
 		# if clockwise == 1, turn clockwise
-		if clockwise == 1:
+		if clockwise_flag == 1:
 			new_dir = (current_dir + 1) % 4
 		# if clockwise == 0, turn anticlockwise
-		elif clockwise == 0:
+		elif clockwise_flag == 0:
 			new_dir = (current_dir - 1) % 4
 		else:
 			print("robot -> turn(): invalid clockwise value")

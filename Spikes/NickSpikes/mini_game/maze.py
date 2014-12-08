@@ -1,12 +1,13 @@
 class maze:
 	def __init__(self, size):
-		self.size = size
-		maze_row = [0]*self.size
-		self.maze = [maze_row]*self.size
+		#maze_row = ['-']*self.size
+		#self.maze = [maze_row]*self.size
+		self.maze = [['-' for x in range(size)] for x in range(size)]
 
 	def print_maze(self):
 		for line in self.maze:
 			print(line)
 
-	def insert_robot(self):
-		pass
+	def update_maze(self, robot):
+		# robot is a robot object
+		self.maze[robot.x_pos][robot.y_pos] = 'X'
