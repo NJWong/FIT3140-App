@@ -40,10 +40,5 @@ class Interpreter:
 					print('Not recognised type')
 					return str(token)
 
-	Env = dict
 
-	def standard_env(self):
-		env = Env()
-		env.update({
 
-		})
