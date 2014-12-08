@@ -44,3 +44,6 @@ class robot:
 			print("robot -> turn(): invalid clockwise value")
 			new_dir = current_dir
 		self.direction = self.direction_list[new_dir]
+
+	def update(self):
+		pass
