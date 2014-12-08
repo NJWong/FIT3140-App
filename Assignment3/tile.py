@@ -3,3 +3,4 @@ class Tile:
 		self.posX = posX
 		self.posY = posY
 		self.collide = False
+		self.win = False
