@@ -3,7 +3,7 @@ from wall import Wall
 from goal import Goal 
 import unittest
 
-class create_clear(unittest.Testcase):
+class create_clear(unittest.TestCase):
 	def setUp(self):
 		self.test_clear = Clear(0,0)
 
@@ -11,7 +11,7 @@ class create_clear(unittest.Testcase):
 		self.assertTrue(self.test_clear.desc==' _ ')
 
 
-class create_wall(unittest.Testcase):
+class create_wall(unittest.TestCase):
 	def setUp(self):
 		self.test_wall = Wall(1,1)
 
@@ -19,7 +19,7 @@ class create_wall(unittest.Testcase):
 		self.assertTrue(self.test_wall.desc==' # ')
 
 
-class create_goal(unittest.Testcase):
+class create_goal(unittest.TestCase):
 	def setUp(self):
 		self.test_goal = Goal(2,2)
 
