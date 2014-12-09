@@ -35,14 +35,13 @@ class Main:
 			#print('expression end')
 
 if __name__ == '__main__':
-	my_robot = Robot(0,0,1) # a robot at (0,0) facing East
+	my_robot = Robot(0,0,0) # a robot at (0,0) facing East
 	my_maze = Maze()
 	main = Main(my_robot, my_maze)
 	#main.show_maze()
 	print(main.robot.posX)
 	print(main.robot.posY)
-
-	program = ['m', 'm', 'm']
+	program = ['m', 't 0 1']
 	main.run_program(program)
 	print(main.robot.posX)
 	print(main.robot.posY)
