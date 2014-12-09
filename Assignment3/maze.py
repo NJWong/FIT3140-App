@@ -6,7 +6,7 @@ class Maze:
 	def __init__(self):
 		self.length = 5
 		self.maze = self.generate_maze()
-		self.print_maze()
+		#self.print_maze()
 
 	def generate_maze(self):
 		maze = [[0 for x in range(self.length)] for x in range(self.length)]
@@ -15,6 +15,7 @@ class Maze:
 			for column in range(self.length):
 				maze[row][column] = Wall(row,column)
 
+		maze[0][0] = Clear(0,0)
 		maze[0][1] = Clear(0,1)
 		maze[0][2] = Clear(0,2)
 		maze[1][2] = Clear(1,2)
