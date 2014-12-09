@@ -5,6 +5,9 @@ from goal import Goal
 import unittest
 
 class create_clear(unittest.TestCase):
+	"""
+	This test is aiming at testing each type of tile is unique or not
+	"""
 	def setUp(self):
 		self.test_clear = Clear(0,0)
 
