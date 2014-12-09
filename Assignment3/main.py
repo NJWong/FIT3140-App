@@ -1,3 +1,5 @@
+#!/usr/bin/env python -B
+
 from robot import *
 from interpreter import *
 from maze import *

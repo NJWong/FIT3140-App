@@ -1,3 +1,5 @@
+#!/usr/bin/env python -B
+
 class Robot:
 	def __init__(self, posX, posY, direct):
 		direction_list = ['N', 'E', 'S', 'W']
