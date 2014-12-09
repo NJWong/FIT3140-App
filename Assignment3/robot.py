@@ -17,3 +17,9 @@ class Robot:
 			self.posX -= 1
 		else:
 			print('invalid direction')
+
+
+def unit_test_suite(robot):
+
+if __name__ == '__main__':
+	test_robot = Robot(0,0,0)

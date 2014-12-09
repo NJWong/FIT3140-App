@@ -5,6 +5,9 @@ class Interpreter:
 		Integer = int
 		Boolean = bool
 		List = list
+		self.function_dict = {
+		'm':'self.move_robot_forward()'
+		}
 
 	def tokenize(self, chars):
 		return chars.replace('(', ' ( ').replace(')', ' ) ').split()

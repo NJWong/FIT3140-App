@@ -9,7 +9,7 @@ class Main:
 		self.interpreter = Interpreter()
 
 	def move_robot_forward(self):
-		print('main: moving robot forward')
+		#print('main: moving robot forward')
 		self.robot.move_forward()
 
 	def show_maze(self):
@@ -17,10 +17,10 @@ class Main:
 
 	def run_program(self, program):
 		# move this to the interpreter class
+
 		for expression in program:
 			#print('expression start')
-			if expression == 'm':
-				self.move_robot_forward()
+			exec(self.interpreter.function_dict[expression])
 			#print('expression end')
 
 if __name__ == '__main__':
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 	print(main.robot.posX)
 	print(main.robot.posY)
 
-	program = ['m', 'm']
+	program = ['m', 'm', 'm']
 	main.run_program(program)
 	print(main.robot.posX)
 	print(main.robot.posY)
