@@ -9,8 +9,19 @@ class Main:
 		self.interpreter = Interpreter()
 
 	def move_robot_forward(self):
-		#print('main: moving robot forward')
-		self.robot.move_forward()
+		if robot_can_move_forward():
+			#print('main: moving robot forward')
+			self.robot.move_forward()
+
+	def robot_can_move_forward(self):
+		if self.robot.direction == 'N':
+			return self.robot.posY > 0 and self.robot.posY <= self.maze.length
+		elif self.robot.direction == 'E':
+			return self.robot.posX >= 0 and self.robot.posX < self.maze.length
+		elif self.robot.direction == 'S':
+			return self.robot.posY >= 0 and self.robot.posY < self.maze.length
+		elif self.robot.direction == 'W':
+			return self.robot.posX > 0 and self.robot.posX <= self.maze.length
 
 	def show_maze(self):
 		self.maze.print_maze()

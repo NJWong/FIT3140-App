@@ -6,7 +6,7 @@ class Robot:
 		self.direction = direction_list[direct]
 
 	def move_forward(self):
-		print('robot: moving forward')
+		#print('robot: moving forward')
 		if self.direction == 'N':
 			self.posY -= 1
 		elif self.direction == 'E':
@@ -17,9 +17,3 @@ class Robot:
 			self.posX -= 1
 		else:
 			print('invalid direction')
-
-
-def unit_test_suite(robot):
-
-if __name__ == '__main__':
-	test_robot = Robot(0,0,0)
