@@ -42,42 +42,42 @@ class robot_turn(unittest.TestCase):
 	# turn the robot anticlockwise once
 	def testOne(self):
 		self.test_robot.turn(0, 1)
-		self.assertTrue(self.test_robot.direction == 'W')
+		self.assertTrue(self.test_robot.direction == 'W' and self.test_robot.posX == 2 and self.test_robot.posY == 2)
 
 	# turn the robot anticlockwise two times
 	def testTwo(self):
 		self.test_robot.turn(0, 2)
-		self.assertTrue(self.test_robot.direction == 'S')
+		self.assertTrue(self.test_robot.direction == 'S' and self.test_robot.posX == 2 and self.test_robot.posY == 2)
 
 	# turn the robot anticlockwise three times
 	def testThree(self):
 		self.test_robot.turn(0, 3)
-		self.assertTrue(self.test_robot.direction == 'E')
+		self.assertTrue(self.test_robot.direction == 'E' and self.test_robot.posX == 2 and self.test_robot.posY == 2)
 
 	# turn the robot anticlockwise four times
 	def testFour(self):
 		self.test_robot.turn(0, 4)
-		self.assertTrue(self.test_robot.direction == 'N')
+		self.assertTrue(self.test_robot.direction == 'N' and self.test_robot.posX == 2 and self.test_robot.posY == 2)
 
 	# turn the robot clockwise once
 	def testOne(self):
 		self.test_robot.turn(1, 1)
-		self.assertTrue(self.test_robot.direction == 'E')
+		self.assertTrue(self.test_robot.direction == 'E' and self.test_robot.posX == 2 and self.test_robot.posY == 2)
 
 	# turn the robot clockwise two times
 	def testTwo(self):
 		self.test_robot.turn(1, 2)
-		self.assertTrue(self.test_robot.direction == 'S')
+		self.assertTrue(self.test_robot.direction == 'S' and self.test_robot.posX == 2 and self.test_robot.posY == 2)
 
 	# turn the robot clockwise three times
 	def testThree(self):
 		self.test_robot.turn(1, 3)
-		self.assertTrue(self.test_robot.direction == 'W')
+		self.assertTrue(self.test_robot.direction == 'W' and self.test_robot.posX == 2 and self.test_robot.posY == 2)
 
 	# turn the robot clockwise four times
 	def testFour(self):
 		self.test_robot.turn(1, 4)
-		self.assertTrue(self.test_robot.direction == 'N')
+		self.assertTrue(self.test_robot.direction == 'N' and self.test_robot.posX == 2 and self.test_robot.posY == 2)
 
 # integration testing
 class robot_moveforward_and_turn(unittest.TestCase):
