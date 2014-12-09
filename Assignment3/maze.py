@@ -6,7 +6,6 @@ class Maze:
 	def __init__(self):
 		self.length = 5
 		self.maze = self.generate_maze()
-		#self.print_maze()
 
 	def generate_maze(self):
 		maze = [[0 for x in range(self.length)] for x in range(self.length)]
@@ -36,8 +35,3 @@ class Maze:
 				string1 += self.maze[row][column].desc
 			print string1
 
-
-
-
-if __name__=="__main__":
-	m = Maze()

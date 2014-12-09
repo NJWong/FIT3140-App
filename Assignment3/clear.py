@@ -6,3 +6,7 @@ class Clear(Tile):
 		self.collide = False
 		self.win = False
 		self.desc = ' _ '
+
+
+	def dummy(self):
+		print 'This is a Clear Class.'
