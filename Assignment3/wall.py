@@ -8,5 +8,3 @@ class Wall(Tile):
 		self.desc = ' # '
 
 
-	def dummy(self):
-		print 'This is a Wall Class.'
