@@ -35,3 +35,5 @@ if __name__ == '__main__':
 	main.run_program(program)
 	print(main.robot.posX)
 	print(main.robot.posY)
+
+	# this is my comment
