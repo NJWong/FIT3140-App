@@ -1,3 +1,4 @@
+#!/usr/bin/env python -B
 from clear import Clear 
 from wall import Wall 
 from goal import Goal 

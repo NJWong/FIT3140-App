@@ -1,3 +1,4 @@
+#!/usr/bin/env python -B
 from tile import Tile 
 
 class Wall(Tile):
