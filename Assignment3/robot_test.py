@@ -1,5 +1,3 @@
-#!/usr/bin/env python -B
-
 import unittest
 from robot import *
 

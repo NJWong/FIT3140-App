@@ -1,5 +1,3 @@
-#!/usr/bin/env python -B
-
 # Type definitions
 class Interpreter:
 

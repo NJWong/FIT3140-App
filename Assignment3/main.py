@@ -1,5 +1,3 @@
-#!/usr/bin/env python -B
-
 from robot import *
 from interpreter import *
 from maze import *
@@ -11,7 +9,7 @@ class Main:
 		self.interpreter = Interpreter()
 
 	def move_robot_forward(self):
-		if robot_can_move_forward():
+		if self.robot_can_move_forward():
 			#print('main: moving robot forward')
 			self.robot.move_forward()
 
