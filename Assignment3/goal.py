@@ -6,3 +6,6 @@ class Goal(Tile):
 		self.collide = False
 		self.win = True
 		self.desc = ' G '
+
+	def dummy(self):
+		print 'This is a Goal Class.'

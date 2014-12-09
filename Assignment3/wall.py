@@ -6,3 +6,7 @@ class Wall(Tile):
 		self.collide = True
 		self.win = False
 		self.desc = ' # '
+
+
+	def dummy(self):
+		print 'This is a Wall Class.'
