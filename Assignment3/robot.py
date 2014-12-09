@@ -3,7 +3,8 @@ class Robot:
 		direction_list = ['N', 'E', 'S', 'W']
 		self.posX = posX
 		self.posY = posY
-		self.direction = direction_list[direct]
+		try:
+			self.direction = direction_list[direct]
 
 	def move_forward(self):
 		#print('robot: moving forward')

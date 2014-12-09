@@ -1,46 +1,37 @@
 import unittest
 from robot import *
 
-# A robot at the top left corner facing North
+# A robot at positon 2, 2
+# Since boundary or tile checking is not done in the robot class,
+# we are not testing that in this set of unit tests
 class robot_moveforward_one(unittest.TestCase):
 
+	# initialise the robot facing North
 	def setUp(self):
-		self.test_robot = Robot(0,0,0)
+		self.test_robot = Robot(2,2,0)
 
+	# testing the robot facing North
 	def testOne(self):
 		self.test_robot.move_forward()
-		self.assertTrue(self.test_robot.posX == 0 and self.test_robot.posY == -1)
+		self.assertTrue(self.test_robot.posX == 2 and self.test_robot.posY == 1)
 
-# A robot at the top left corner facing East
-class robot_moveforward_two(unittest.TestCase):
-
-	def setUp(self):
-		self.test_robot = Robot(0,0,1)
-
+	# testing the robot facing East
 	def testTwo(self):
+		self.test_robot.direction = 'E' # hard coding since we done turning yet
 		self.test_robot.move_forward()
-		self.assertTrue(self.test_robot.posX == 1 and self.test_robot.posY == 0)
+		self.assertTrue(self.test_robot.posX == 3 and self.test_robot.posY == 2)
 
-# A robot at the top left corner facing South
-class robot_moveforward_three(unittest.TestCase):
-
-	def setUp(self):
-		self.test_robot = Robot(0,0,2)
-
-	def testTwo(self):
+	# testing the robot facing South
+	def testThree(self):
+		self.test_robot.direction = 'S' # hard coding since we done turning yet
 		self.test_robot.move_forward()
-		self.assertTrue(self.test_robot.posX == 0 and self.test_robot.posY == 1)
+		self.assertTrue(self.test_robot.posX == 2 and self.test_robot.posY == 3)
 
-# A robot at the top left corner facing West
-class robot_moveforward_four(unittest.TestCase):
-
-	def setUp(self):
-		self.test_robot = Robot(0,0,3)
-
-	def testTwo(self):
+	# testing the robot facing West
+	def testFour(self):
+		self.test_robot.direction = 'W' # hard coding since we done turning yet
 		self.test_robot.move_forward()
-		self.assertTrue(self.test_robot.posX == -1 and self.test_robot.posY == 0)
-
+		self.assertTrue(self.test_robot.posX == 1 and self.test_robot.posY == 2)
 
 def main():
 	unittest.main()
