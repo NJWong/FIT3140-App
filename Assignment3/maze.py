@@ -1,4 +1,3 @@
-#!/usr/bin/env python -B
 from clear import Clear 
 from goal import Goal 
 from wall import Wall 
@@ -25,6 +24,7 @@ class Maze:
 
 		return maze
 
+	"""	
 	def print_maze(self):
 		# ' # ' represents a wall
 		# ' R ' represents the robot
@@ -35,4 +35,5 @@ class Maze:
 			for column in range(self.length):
 				string1 += self.maze[row][column].desc
 			print string1
+	"""
 
