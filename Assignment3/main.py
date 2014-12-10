@@ -14,16 +14,16 @@ class Main:
 		if it is a wall, then return True; if not, return False
 		"""
 		if self.robot.direction=='N':
-			if self.maze.maze[self.robot.posX][self.robot.posY - 1].collide == True:
+			if self.maze.maze[self.robot.posY - 1][self.robot.posX].collide == True:
 				return True
 		elif self.robot.direction =='E':
-			if self.maze.maze[self.robot.posX + 1][self.robot.posY].collide == True:
+			if self.maze.maze[self.robot.posY][self.robot.posX + 1].collide == True:
 				return True		
 		elif self.robot.direction =='S':
-			if self.maze.maze[self.robot.posX][self.robot.posY + 1].collide == True:
+			if self.maze.maze[self.robot.posY + 1][self.robot.posX].collide == True:
 				return True	
 		elif self.robot.direction =='W':
-			if self.maze.maze[self.robot.posX - 1][self.robot.posY].collide == True:
+			if self.maze.maze[self.robot.posY][self.robot.posX - 1].collide == True:
 				return True		
 		else:
 			return False
@@ -41,21 +41,21 @@ class Main:
 
 	def move_robot_forward(self):
 		if self.robot_can_move_forward():
-			if self.detect_wall()==False:
 			#print('main: moving robot forward')
-				self.robot.move_forward()
-				if self.detect_win():
-					pass
+			self.robot.move_forward()
+			if self.detect_win():
+				pass
 
 	def robot_can_move_forward(self):
+		# TODO: detecting wall
 		if self.robot.direction == 'N':
-			return self.robot.posY > 0 and self.robot.posY <= self.maze.length
+			return self.robot.posY > 0 and self.robot.posY <= self.maze.length and not self.detect_wall
 		elif self.robot.direction == 'E':
-			return self.robot.posX >= 0 and self.robot.posX < self.maze.length
+			return self.robot.posX >= 0 and self.robot.posX < self.maze.length and not self.detect_wall
 		elif self.robot.direction == 'S':
-			return self.robot.posY >= 0 and self.robot.posY < self.maze.length
+			return self.robot.posY >= 0 and self.robot.posY < self.maze.length and not self.detect_wall
 		elif self.robot.direction == 'W':
-			return self.robot.posX > 0 and self.robot.posX <= self.maze.length
+			return self.robot.posX > 0 and self.robot.posX <= self.maze.length and not self.detect_wall
 
 	def show_maze(self):
 		self.maze.print_maze()
