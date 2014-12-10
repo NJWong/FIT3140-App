@@ -24,9 +24,8 @@ class Main:
 				return True	
 		elif self.robot.direction =='W':
 			if self.maze.maze[self.robot.posY][self.robot.posX - 1].collide == True:
-				return True		
-		else:
-			return False
+				return True
+		return False
 
 	def detect_win(self):
 		"""
@@ -49,13 +48,13 @@ class Main:
 	def robot_can_move_forward(self):
 		# TODO: detecting wall
 		if self.robot.direction == 'N':
-			return self.robot.posY > 0 and self.robot.posY <= self.maze.length and not self.detect_wall
+			return self.robot.posY > 0 and self.robot.posY <= self.maze.length and not self.detect_wall()
 		elif self.robot.direction == 'E':
-			return self.robot.posX >= 0 and self.robot.posX < self.maze.length and not self.detect_wall
+			return self.robot.posX >= 0 and self.robot.posX < self.maze.length and not self.detect_wall()
 		elif self.robot.direction == 'S':
-			return self.robot.posY >= 0 and self.robot.posY < self.maze.length and not self.detect_wall
+			return self.robot.posY >= 0 and self.robot.posY < self.maze.length and not self.detect_wall()
 		elif self.robot.direction == 'W':
-			return self.robot.posX > 0 and self.robot.posX <= self.maze.length and not self.detect_wall
+			return self.robot.posX > 0 and self.robot.posX <= self.maze.length and not self.detect_wall()
 
 	def show_maze(self):
 		self.maze.print_maze()

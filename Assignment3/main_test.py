@@ -94,15 +94,7 @@ class move_robot_forward(unittest.TestCase):
 	# change direction of robot to East and move forward
 	def testTwo(self):
 		self.test_main.robot.direction = 'E' # hard coded since we have not implemented turn yet
-		print(self.test_main.robot.direction)
-		print(self.test_main.robot.posX)
-		print(self.test_main.robot.posY)
-
 		self.test_main.move_robot_forward()
-
-		print(self.test_main.robot.direction)
-		print(self.test_main.robot.posX)
-		print(self.test_main.robot.posY)
 		self.assertTrue(
 			self.test_main.robot.posX == 1
 			and self.test_main.robot.posY == 0
@@ -112,21 +104,21 @@ class move_robot_forward(unittest.TestCase):
 	# should not change position or direction since it is a wall
 	def testThree(self):
 		self.test_main.robot.direction = 'S' # hard coded since we have not implemented turn yet
-		
-		#print(self.test_main.robot.direction)
-		#print(self.test_main.robot.posX)
-		#print(self.test_main.robot.posY)
-
 		self.test_main.move_robot_forward()
-
-		#print(self.test_main.robot.direction)
-		#print(self.test_main.robot.posX)
-		#print(self.test_main.robot.posY)
-
 		self.assertTrue(
 			self.test_main.robot.posX == 0
 			and self.test_main.robot.posY == 0
 			and self.test_main.robot.direction == 'S')
+
+	# change direction to West and attempt to move forward
+	# should not change position or direction since it is the edge of the maze
+	def testFour(self):
+		self.test_main.robot.direction = 'W' # hard coded since we have not implemented turn yet
+		self.test_main.move_robot_forward()
+		self.assertTrue(
+			self.test_main.robot.posX == 0
+			and self.test_main.robot.posY == 0
+			and self.test_main.robot.direction == 'W')
 
 
 # testing robot_can_move_forward
