@@ -122,10 +122,52 @@ class move_robot_forward(unittest.TestCase):
 
 
 # testing robot_can_move_forward
+class robot_can_move_forward(unittest.TestCase):
+
+	def setUp(self):
+		test_robot = Robot(3,2,0) # initialise a robot at (3,2) facing north - next to all types of tiles!
+		test_maze = Maze() # might need to define size later
+
+		self.test_main = Main(test_robot, test_maze)
+
+	# test if robot can move into a clear tile - it should be able to
+	def testOne(self):
+		self.assertTrue(self.test_main.robot_can_move_forward())
+
+	# test if robot can move into a goal tile - it should be able to
+	def testTwo(self):
+		self.test_main.robot.direction = 'E' # hard coded since we have not implemented turn yet
+		self.assertTrue(self.test_main.robot_can_move_forward())
+
+	# test if robot can move into a wall tile - it should NOT be able to
+	def testThree(self):
+		self.test_main.robot.direction = 'S' # hard coded since we have not implemented turn yet
+		self.assertTrue(not self.test_main.robot_can_move_forward())
 
 
 # testing run_program
+class run_program(unittest.TestCase):
+	def setUp(self):
+		test_robot = Robot(3,2,0) # initialise a robot at (3,2) facing north - next to all types of tiles!
+		test_maze = Maze() # might need to define size later
 
+		self.test_main = Main(test_robot, test_maze)
+
+	def testOne(self):
+		program = ['m']
+		self.assertTrue(self.test_main.run_program(program))
+
+	def testTwo(self):
+		program = ['d_wall']
+		self.assertTrue(self.test_main.run_program(program))
+
+	def testThree(self):
+		program = ['d_win']
+		self.assertTrue(self.test_main.run_program(program))
+
+	def testFour(self):
+		program = ['m', 'd_wall', 'd_win']
+		self.assertTrue(self.test_main.run_program(program))
 
 def main():
 	unittest.main()

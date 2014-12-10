@@ -1,5 +1,5 @@
 class Robot:
-	def __init__(self, posX, posY, direct):
+	def __init__(self, posY, posX, direct):
 		self.direction_list = ['N', 'E', 'S', 'W']
 		self.posX = posX
 		self.posY = posY

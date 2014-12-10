@@ -46,7 +46,7 @@ class Main:
 				pass
 
 	def robot_can_move_forward(self):
-		# TODO: detecting wall
+		# TODO: can edit this to minimise checking 
 		if self.robot.direction == 'N':
 			return self.robot.posY > 0 and self.robot.posY <= self.maze.length and not self.detect_wall()
 		elif self.robot.direction == 'E':
@@ -60,12 +60,15 @@ class Main:
 		self.maze.print_maze()
 
 	def run_program(self, program):
-		# move this to the interpreter class
-
+		# move this to the interpreter class maybe?
 		for expression in program:
 			#print('expression start')
-			exec(self.interpreter.function_dict[expression])
+			try:
+				exec(self.interpreter.function_dict[expression])
+			except ValueError:
+				return False
 			#print('expression end')
+		return True
 
 if __name__ == '__main__':
 	pass
