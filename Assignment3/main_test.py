@@ -16,36 +16,36 @@ class test_detect_wall_north(unittest.TestCase):
 
 class test_detect_wall_east(unittest.TestCase):
 	def setUp(self):
-		self.test_robot = robot.Robot(2,2,1)
-		self.test_maze = maze.Maze()
-		self.test_main = main.Main(self.test_robot, self.test_maze)
+		self.test_robot = Robot(2,2,1)
+		self.test_maze = Maze()
+		self.test_main = Main(self.test_robot, self.test_maze)
 
 	def testTwo(self):
 		self.assertTrue(self.test_main.detect_wall()==True)
 
 class test_detect_wall_south(unittest.TestCase):
 	def setUp(self):
-		self.test_robot = robot.Robot(0,0,2)
-		self.test_maze = maze.Maze()
-		self.test_main = main.Main(self.test_robot, self.test_maze)
+		self.test_robot = Robot(0,0,2)
+		self.test_maze = Maze()
+		self.test_main = Main(self.test_robot, self.test_maze)
 
 	def testThree(self):
 		self.assertTrue(self.test_main.detect_wall()==True)
 
 class test_detect_wall_west(unittest.TestCase):
 	def setUp(self):
-		self.test_robot = robot.Robot(2,2,3)
-		self.test_maze = maze.Maze()
-		self.test_main = main.Main(self.test_robot, self.test_maze)
+		self.test_robot = Robot(2,2,3)
+		self.test_maze = Maze()
+		self.test_main = Main(self.test_robot, self.test_maze)
 
 	def testFour(self):
 		self.assertTrue(self.test_main.detect_wall()==True)
 
 class test_detect_wall_none(unittest.TestCase):
 	def setUp(self):
-		self.test_robot = robot.Robot(0,0,1)
-		self.test_maze = maze.Maze()
-		self.test_main = main.Main(self.test_robot, self.test_maze)
+		self.test_robot = Robot(0,0,1)
+		self.test_maze = Maze()
+		self.test_main = Main(self.test_robot, self.test_maze)
 
 	def testFive(self):
 		self.assertTrue(self.test_main.detect_wall()==False)
@@ -53,18 +53,18 @@ class test_detect_wall_none(unittest.TestCase):
 # testing detect_win
 class test_detect_win1(unittest.TestCase):
 	def setUp(self):
-		self.test_robot = robot.Robot(3,3,0)
-		self.test_maze = maze.Maze()
-		self.test_main = main.Main(self.test_robot, self.test_maze)
+		self.test_robot = Robot(3,3,0)
+		self.test_maze = Maze()
+		self.test_main = Main(self.test_robot, self.test_maze)
 
 	def testOne(self):
 		self.assertTrue(self.test_main.detect_win()==True)
 
 class test_detect_win2(unittest.TestCase):
 	def setUp(self):
-		self.test_robot = robot.Robot(0,0,0)
-		self.test_maze = maze.Maze()
-		self.test_main = main.Main(self.test_robot, self.test_maze)
+		self.test_robot = Robot(0,0,0)
+		self.test_maze = Maze()
+		self.test_main = Main(self.test_robot, self.test_maze)
 
 	def testTwo(self):
 		self.assertTrue(self.test_main.detect_win()==False)
