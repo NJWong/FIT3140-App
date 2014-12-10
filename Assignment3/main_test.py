@@ -6,6 +6,9 @@ from maze import *
 
 # testing detect_wall
 class test_detect_wall_north(unittest.TestCase):
+	"""
+	Test when a wall is to the north of the robot 
+	"""
 	def setUp(self):
 		self.test_robot = Robot(3,3,0)
 		self.test_maze = Maze()
@@ -15,6 +18,9 @@ class test_detect_wall_north(unittest.TestCase):
 		self.assertTrue(self.test_main.detect_wall()==True)
 
 class test_detect_wall_east(unittest.TestCase):
+	"""
+	Test when a wall is to the east of the robot 
+	"""
 	def setUp(self):
 		self.test_robot = Robot(2,2,1)
 		self.test_maze = Maze()
@@ -24,6 +30,9 @@ class test_detect_wall_east(unittest.TestCase):
 		self.assertTrue(self.test_main.detect_wall()==True)
 
 class test_detect_wall_south(unittest.TestCase):
+	"""
+	Test when a wall is to the south of the robot 
+	"""
 	def setUp(self):
 		self.test_robot = Robot(0,0,2)
 		self.test_maze = Maze()
@@ -33,6 +42,9 @@ class test_detect_wall_south(unittest.TestCase):
 		self.assertTrue(self.test_main.detect_wall()==True)
 
 class test_detect_wall_west(unittest.TestCase):
+	"""
+	Test when a wall is to the west of the robot 
+	"""
 	def setUp(self):
 		self.test_robot = Robot(2,2,3)
 		self.test_maze = Maze()
@@ -42,6 +54,9 @@ class test_detect_wall_west(unittest.TestCase):
 		self.assertTrue(self.test_main.detect_wall()==True)
 
 class test_detect_wall_none(unittest.TestCase):
+	"""
+	Test when there is no wall around the robot 
+	"""
 	def setUp(self):
 		self.test_robot = Robot(0,0,1)
 		self.test_maze = Maze()
@@ -52,6 +67,9 @@ class test_detect_wall_none(unittest.TestCase):
 
 # testing detect_win
 class test_detect_win1(unittest.TestCase):
+	"""
+	Test when the robot reaches the Goal tile
+	"""
 	def setUp(self):
 		self.test_robot = Robot(3,3,0)
 		self.test_maze = Maze()
@@ -61,6 +79,9 @@ class test_detect_win1(unittest.TestCase):
 		self.assertTrue(self.test_main.detect_win()==True)
 
 class test_detect_win2(unittest.TestCase):
+	"""
+	Test when the robot has not reaches the Goal tile 
+	"""
 	def setUp(self):
 		self.test_robot = Robot(0,0,0)
 		self.test_maze = Maze()
