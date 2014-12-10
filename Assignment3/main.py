@@ -28,6 +28,16 @@ class Main:
 		else:
 			return False
 
+	def detect_win(self):
+		"""
+		Identify the robot is currently standing on the Goal tile or not,
+		if yes, return True; if not, return False
+		"""
+		if self.maze.maze[self.robot.posX][self.robot.posY].win == True:
+			return True
+		else:
+			return False
+
 	def move_robot_forward(self):
 		if self.robot_can_move_forward():
 			#print('main: moving robot forward')
