@@ -20,7 +20,7 @@ class Maze:
 		maze[1][2] = Clear(1,2)
 		maze[2][2] = Clear(2,2)
 		maze[3][2] = Clear(3,2)
-		maze[3][3] = Goal(3,3) 
+		maze[3][3] = Goal(3,3)
 
 		return maze
 

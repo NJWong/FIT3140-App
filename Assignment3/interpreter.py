@@ -6,7 +6,9 @@ class Interpreter:
 		Boolean = bool
 		List = list
 		self.function_dict = {
-		'm':'self.move_robot_forward()'
+		'm':'self.move_robot_forward()',
+		'd_wall':'self.detect_wall()',
+		'd_win':'self.detect_win()'
 		}
 
 	def tokenize(self, chars):
