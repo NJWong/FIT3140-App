@@ -31,7 +31,8 @@ class Main:
 	def detect_win(self):
 		"""
 		Identify the robot is currently standing on the Goal tile or not,
-		if yes, return True; if not, return False
+		if yes, return True (probably later, when detect True, it will call sth to end the app); 
+		if not, return False
 		"""
 		if self.maze.maze[self.robot.posX][self.robot.posY].win == True:
 			return True
