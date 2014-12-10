@@ -41,8 +41,11 @@ class Main:
 
 	def move_robot_forward(self):
 		if self.robot_can_move_forward():
+			if self.detect_wall()==False:
 			#print('main: moving robot forward')
-			self.robot.move_forward()
+				self.robot.move_forward()
+				if self.detect_win():
+					pass
 
 	def robot_can_move_forward(self):
 		if self.robot.direction == 'N':
