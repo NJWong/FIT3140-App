@@ -27,6 +27,23 @@ class Main:
 				return True
 		return False
 
+	def distance_to_wall(self):
+		distance = 0
+		maze = self.maze.maze 
+		x=self.robot.posX
+		y=self.robot.posY
+		while maze[y][x].collide == False:
+			if self.robot.direction=='N':
+				y -= 1
+			elif self.robot.direction=='E':
+				x += 1
+			elif self.robot.direction=='S':
+				y += 1
+			elif self.robot.direction=='W':
+				x -= 1
+			distance += 1
+		return distance
+
 	def detect_win(self):
 		"""
 		Identify the robot is currently standing on the Goal tile or not,
@@ -37,6 +54,10 @@ class Main:
 			return True
 		else:
 			return False
+
+	def distance_to_goal(self):
+		pass
+
 
 	def move_robot_forward(self):
 		if self.robot_can_move_forward():
