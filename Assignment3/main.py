@@ -28,7 +28,7 @@ class Main:
 		return False
 
 	def distance_to_wall(self):
-		distance = 0
+		distance = -1
 		maze = self.maze.maze 
 		x=self.robot.posX
 		y=self.robot.posY
@@ -57,6 +57,25 @@ class Main:
 
 	def distance_to_goal(self):
 		pass
+
+	def search(self,x,y):
+		if self.maze.maze[y][x].desc==' G ':
+			return True
+		elif self.maze.maze[y][x].desc==' # ':
+			return False
+		elif self.maze.maze[y][x].desc==' V ':	#the tile has been visited
+			return False
+
+		self.maze.maze[y][x].desc = ' V '
+
+		if (x<self.maze.length-1 and search(x+1,y)) 
+			or (y>0 and search(x,y-1)) 
+			or (x>0 and search(x-1,y))
+			or (y<self.maze.length-1 and search(x,y+1)):
+			return True
+
+		return False
+
 
 
 	def move_robot_forward(self):
