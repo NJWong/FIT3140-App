@@ -90,6 +90,42 @@ class test_detect_win2(unittest.TestCase):
 	def testTwo(self):
 		self.assertTrue(self.test_main.detect_win()==False)
 
+class test_distance_to_wall_north(unittest.TestCase):
+	def setUp(self):
+		self.test_robot = Robot(3,3,0)
+		self.test_maze = Maze()
+		self.test_main = Main(self.test_robot,self.test_maze)
+
+	def testOne(self):
+		self.assertTrue(self.test_main.distance_to_wall()==0)
+
+class test_distance_to_wall_east(unittest.TestCase):
+	def setUp(self):
+		self.test_robot = Robot(0,0,1)
+		self.test_maze = Maze()
+		self.test_main = Main(self.test_robot,self.test_maze)
+
+	def testTwo(self):
+		self.assertTrue(self.test_main.distance_to_wall()==2)
+
+class test_distance_to_wall_south(unittest.TestCase):
+	def setUp(self):
+		self.test_robot = Robot(2,0,2)
+		self.test_maze = Maze()
+		self.test_main = Main(self.test_robot,self.test_maze)
+
+	def testThree(self):
+		self.assertTrue(self.test_main.distance_to_wall()==3)
+
+class test_distance_to_wall_west(unittest.TestCase):
+	def setUp(self):
+		self.test_robot = Robot(3,3,3)
+		self.test_maze = Maze()
+		self.test_main = Main(self.test_robot,self.test_maze)
+
+	def testFour(self):
+		self.assertTrue(self.test_main.distance_to_wall()==1)
+
 
 # testing move_robot_forward
 class move_robot_forward(unittest.TestCase):
