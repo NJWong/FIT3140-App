@@ -91,6 +91,9 @@ class test_detect_win2(unittest.TestCase):
 		self.assertTrue(self.test_main.detect_win()==False)
 
 class test_distance_to_wall_north(unittest.TestCase):
+	"""
+	Test the distance from the robot to the wall (which is to the north of the robot)
+	"""
 	def setUp(self):
 		self.test_robot = Robot(3,3,0)
 		self.test_maze = Maze()
@@ -100,6 +103,9 @@ class test_distance_to_wall_north(unittest.TestCase):
 		self.assertTrue(self.test_main.distance_to_wall()==0)
 
 class test_distance_to_wall_east(unittest.TestCase):
+	"""
+	Test the distance from the robot to the wall (which is to the east of the robot)
+	"""
 	def setUp(self):
 		self.test_robot = Robot(0,0,1)
 		self.test_maze = Maze()
@@ -109,8 +115,11 @@ class test_distance_to_wall_east(unittest.TestCase):
 		self.assertTrue(self.test_main.distance_to_wall()==2)
 
 class test_distance_to_wall_south(unittest.TestCase):
+	"""
+	Test the distance from the robot to the wall (which is to the south of the robot)
+	"""
 	def setUp(self):
-		self.test_robot = Robot(2,0,2)
+		self.test_robot = Robot(0,2,2)
 		self.test_maze = Maze()
 		self.test_main = Main(self.test_robot,self.test_maze)
 
@@ -118,6 +127,9 @@ class test_distance_to_wall_south(unittest.TestCase):
 		self.assertTrue(self.test_main.distance_to_wall()==3)
 
 class test_distance_to_wall_west(unittest.TestCase):
+	"""
+	Test the distance from the robot to the wall (which is to the south of the robot)
+	"""
 	def setUp(self):
 		self.test_robot = Robot(3,3,3)
 		self.test_maze = Maze()
@@ -125,6 +137,34 @@ class test_distance_to_wall_west(unittest.TestCase):
 
 	def testFour(self):
 		self.assertTrue(self.test_main.distance_to_wall()==1)
+
+class test_set_temp_maze(unittest.TestCase):
+	"""
+	Test the temp maze is the same as the original maze or not
+	"""
+	def setUp(self):
+		self.test_robot = Robot(0,0,0)
+		self.test_maze = Maze()
+		self.test_main = Main(self.test_robot,self.test_maze)
+		self.test_temp_maze = self.test_main.set_temp_maze()
+
+
+	def testOne(self):
+		print(self.test_temp_maze[0][0].desc)
+		self.assertTrue(self.test_temp_maze[0][0].desc==' _ ')
+
+
+class test_distance_to_goal(unittest.TestCase):
+	"""
+	Test the distance from the robot to the goal is correct or not 
+	"""
+	def setUp(self):
+		self.test_robot = Robot(0,0,0)
+		self.test_maze = Maze()
+		self.test_main = Main(self.test_robot,self.test_maze)
+
+	def testOne(self):
+		self.assertTrue(self.test_main.distance_to_goal()==6)
 
 
 # testing move_robot_forward

@@ -28,6 +28,9 @@ class Main:
 		return False
 
 	def distance_to_wall(self):
+		"""
+		Return the distance from the robot position to the wall which the robot is currently facing
+		"""
 		distance = -1
 		maze = self.maze.maze 
 		x=self.robot.posX
@@ -55,27 +58,49 @@ class Main:
 		else:
 			return False
 
+	def set_temp_maze(self):
+		"""
+		Create a temp maze for function search to use
+		in order not to affect the original maze.
+		"""
+		temp_maze = [[0 for x in range(self.maze.length)] for x in range(self.maze.length)]
+
+		for row in range(self.maze.length):
+			for column in range(self.maze.length):
+				temp_maze[row][column] = self.maze.maze[row][column]
+		return temp_maze
+		
 	def distance_to_goal(self):
-		pass
+		"""
+		call function search(x,y) to use recursive way to solve the maze;
+		return the distance from robot position to goal.
+		Note: the goal self.collide is False, so only when step on it,
+		the function can detect the goal,
+		thus it is a bit different from function distance_to_wall
+		"""
+		self.dist = 0
+		self.temp_maze = self.set_temp_maze()
+		self.search(self.robot.posX,self.robot.posY)
+		return self.dist
 
 	def search(self,x,y):
-		if self.maze.maze[y][x].desc==' G ':
+		"""
+		Called by distance_to_goal().
+		"""
+		if self.temp_maze[y][x].desc==' G ':
 			return True
-		elif self.maze.maze[y][x].desc==' # ':
+		elif self.temp_maze[y][x].desc==' # ':
 			return False
-		elif self.maze.maze[y][x].desc==' V ':	#the tile has been visited
+		elif self.temp_maze[y][x].desc==' V ':	#the tile has been visited
 			return False
 
-		self.maze.maze[y][x].desc = ' V '
+		self.temp_maze[y][x].desc = ' V '
 
-		if (x<self.maze.length-1 and search(x+1,y)) 
-			or (y>0 and search(x,y-1)) 
-			or (x>0 and search(x-1,y))
-			or (y<self.maze.length-1 and search(x,y+1)):
+		if (x<self.maze.length-1 and self.search(x+1,y)) or (y>0 and self.search(x,y-1)) or (x>0 and self.search(x-1,y))or (y<self.maze.length-1 and self.search(x,y+1)):
+			self.dist += 1
 			return True
 
 		return False
-
 
 
 	def move_robot_forward(self):
