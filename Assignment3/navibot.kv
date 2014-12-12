@@ -1,0 +1,71 @@
+#:kivy 1.8
+
+<NaviControls>:
+	run_button: run_button
+	stop_button: stop_button
+
+	BoxLayout:
+		orientation: 'vertical'
+
+		Button:
+			id: run_button
+
+		Button:
+			id: stop_button
+
+<NaviBot>:
+	BoxLayout:
+		orientation: 'vertical'
+
+		BoxLayout:
+			orientation: 'horizontal'
+
+			ScreenManager:
+				id: screen_manager
+				#size_hint: 1, 0.9
+				
+				Screen:
+					name: 'programming'
+
+					GridLayout:
+						cols: 2
+
+						# NaviBlocks
+						Button:
+							text: 'NaviBlocks'
+
+						# NaviProgram
+						Button:
+							text: 'NaviProgram'
+
+				Screen:
+					name: 'maze'
+
+					GridLayout:
+						cols: 2
+
+						# NaviControls
+						Button:
+							size_hint: 0.15, 1
+							text: 'NaviControls'
+
+						# NaviMaze
+						Button:
+							text: 'NaviMaze'
+
+		BoxLayout:
+			orientation: 'horizontal'
+			size_hint: 1, 0.1
+
+			# Screen Controller
+			Button:
+				text: 'Programming'
+				on_press:
+					screen_manager.transition.direction = 'right'
+					screen_manager.current = 'programming'
+
+			Button:
+				text: 'Maze'
+				on_press:
+					screen_manager.transition.direction = 'left'
+					screen_manager.current = 'maze'

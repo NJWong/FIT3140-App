@@ -1,0 +1,65 @@
+#:kivy 1.8
+
+<NaviBot>:
+	
+	#navimaze: navimaze
+
+	BoxLayout:
+		orientation: 'vertical'
+		BoxLayout:
+			orientation: 'horizontal'
+
+			ScreenManager:
+				#size_hint: 1, 0.9
+				id: screen_manager
+
+				# The first screen
+				Screen:
+					name: 'Programming'
+
+					GridLayout:
+						cols: 2
+						Button:
+							text: 'Block area'
+
+						BoxLayout:
+							orientation: 'vertical'
+
+							Button:
+								text: 'Program area'
+								
+							Button:
+								text: 'Control area'
+
+				# The second screen
+				Screen:
+					name: 'Maze'
+					Label:
+						text: 'maze'
+
+		# Screen switcher panel
+		BoxLayout:
+			orientation: 'horizontal'
+			#size_hint: 1, 0.1
+
+			# Button that switches to screen 1
+			Button:
+				text: 'Programming'
+				on_press:
+					screen_manager.transition.direction = 'right'
+					screen_manager.current = 'Programming'
+
+			# Button that switches to screen 2
+			Button:
+				text: 'Maze'
+				on_press:
+					screen_manager.transition.direction = 'left'
+					screen_manager.current = 'Maze'	
+
+
+
+maze = ListProperty([['C','C','C','W','W','W'],
+						['W','W','C','W','W','W'],
+						['W','W','C','W','W','W'],
+						['W','W','C','G','W','W'],
+						['W','W','W','W','W','W']])
