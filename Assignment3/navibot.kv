@@ -1,5 +1,11 @@
 #:kivy 1.8
 
+<RunButton>:
+	text: 'RUN'
+
+<StopButton>:
+	text: 'STOP'
+
 <NaviControls>:
 	run_button: run_button
 	stop_button: stop_button
@@ -7,13 +13,23 @@
 	BoxLayout:
 		orientation: 'vertical'
 
-		Button:
+		RunButton
 			id: run_button
+			on_press: root.run_button_touched()
 
-		Button:
+		StopButton:
 			id: stop_button
+			on_press:
+				root.stop_button_touched()
+
+<NaviProgram>:
+	Label:
+		text: 'program area'
 
 <NaviBot>:
+	navicontrols: navicontrols
+	naviprogram: naviprogram
+
 	BoxLayout:
 		orientation: 'vertical'
 
@@ -35,8 +51,8 @@
 							text: 'NaviBlocks'
 
 						# NaviProgram
-						Button:
-							text: 'NaviProgram'
+						NaviProgram:
+							id: naviprogram
 
 				Screen:
 					name: 'maze'
@@ -45,13 +61,14 @@
 						cols: 2
 
 						# NaviControls
-						Button:
+						NaviControls:
+							id: navicontrols
 							size_hint: 0.15, 1
-							text: 'NaviControls'
 
 						# NaviMaze
 						Button:
 							text: 'NaviMaze'
+							on_press: naviprogram.run_program()
 
 		BoxLayout:
 			orientation: 'horizontal'
