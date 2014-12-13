@@ -25,18 +25,34 @@
 						NaviBlocks:
 							move_block: move_block
 							turn_block: turn_block
+							misc1: misc1
+							misc2: misc2
+							misc3: misc3
+
 							id: naviblocks
 							orientation: 'vertical'
-							cols: 3
-							rows: 3
+							padding: 10,10
 
 							ProgramBlock:
 								id: move_block
 								text: 'MOVE'
+								on_touch_up: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
 								id: turn_block
 								text: 'TURN'
+
+							ProgramBlock:
+								id: misc1
+								text: 'misc1'
+
+							ProgramBlock:
+								id: misc2
+								text: 'misc2'
+
+							ProgramBlock:
+								id: misc3
+								text: 'misc3'
 
 						# NaviProgram
 						NaviProgram:

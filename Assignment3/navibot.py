@@ -16,6 +16,20 @@ class NaviBot(FloatLayout):
 	navicontrols = ObjectProperty(None)
 	#navimaze = ObjectProperty(None)
 
+class NaviProgram(StackLayout):
+
+	program = ListProperty([])
+
+	def run_program(self):
+		print('NaviProgram: I am running the program!')
+
+	def stop_program(self):
+		print('NaviProgram: I am stopping the progam!')
+
+	def add_statement(self, statement):
+		self.program.append(statement)
+		print(self.program)
+
 class ProgramBlock(Button):
 	selected = BooleanProperty(False)
 	originX = NumericProperty(None)
@@ -47,6 +61,9 @@ class ProgramBlock(Button):
 class NaviBlocks(BoxLayout):
 	move_block = ObjectProperty(None)
 	turn_block = ObjectProperty(None)
+	misc1 = ObjectProperty(None)
+	misc2 = ObjectProperty(None)
+	misc3 = ObjectProperty(None)
 
 class NaviControls(BoxLayout):
 	run_button = ObjectProperty(None)
@@ -57,16 +74,6 @@ class RunButton(Button):
 
 class StopButton(Button):
 	pass
-
-class NaviProgram(StackLayout):
-
-	#program = ListProperty(['m','m','m'])
-
-	def run_program(self):
-		print('NaviProgram: I am running the program!')
-
-	def stop_program(self):
-		print('NaviProgram: I am stopping the progam!')
 
 class NaviMaze(GridLayout):
 	pass
