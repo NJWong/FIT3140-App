@@ -25,8 +25,8 @@
 						# NaviBlocks
 						NaviBlocks:
 							move_block: move_block
-							turn_block: turn_block
-							misc1: misc1
+							turn_a: turn_a
+							turn_c: turn_c
 							misc2: misc2
 							misc3: misc3
 
@@ -41,14 +41,16 @@
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
-								id: turn_block
-								text: 'TURN'
+								id: turn_a
+								text: 'TURN_A'
 								on_touch_up:
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
-								id: misc1
-								text: 'misc1'
+								id: turn_c
+								text: 'TURN_C'
+								on_touch_up:
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
 								id: misc2
@@ -79,24 +81,13 @@
 							Button:
 								id: run_button
 								text: 'RUN'
-								on_press: naviprogram.run_program()
+								#on_press: naviprogram.run_program()
+								on_press: root.run_program(naviprogram.program)
 
 							Button:
 								id: stop_button
 								text: 'STOP'
-								on_press: naviprogram.stop_program()
-							Button:
-								id: move_robot
-								text: 'Move'
-								on_press: navimaze.move_robot()
-							Button:
-								id: turn_anticlockwise
-								text: 'anti'
-								on_press: navimaze.turn_anticlockwise()
-							Button:
-								id: turn_clockwise
-								text: 'clock'
-								on_press: navimaze.turn_clockwise()
+								#on_press: naviprogram.stop_program()
 							Label:
 								text: str('Direction: ' + navimaze.robot.direction)
 

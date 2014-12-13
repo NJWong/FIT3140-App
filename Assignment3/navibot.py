@@ -10,32 +10,52 @@ from kivy.properties import ObjectProperty, ListProperty, NumericProperty, Boole
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.relativelayout import RelativeLayout
+from kivy.clock import Clock
+from functools import partial
+
+class Interpreter():
+	def __init__(self):
+		self.running = False
+		self.function_dict = {
+		'MOVE':'move_robot()',
+		'TURN_A':'turn_anticlockwise()',
+		'TURN_C': 'turn_clockwise()'
+		}
+
+	def create_execution_tree(self, program):
+		execution_tree = []
+		for statement in program:
+			execution_tree.append(self.execute(statement))
+		return execution_tree
+
+	def execute(self, statement):
+		return 'self.navimaze.'+self.function_dict[statement]
 
 class NaviBot(FloatLayout):
 	naviblocks = ObjectProperty(None)
 	naviprogram = ObjectProperty(None)
 	navicontrols = ObjectProperty(None)
 	navimaze = ObjectProperty(None)
+	interpreter = Interpreter()
+	execution_tree = ListProperty(None)
 
-class Interpreter():
-	def __init__(self):
-		self.running = False
+	def run(self, statement, dt):
+		print(statement)
+		exec(statement)
 
-	def run(self, program):
-		for statement in program:
-			print(statement)
+	def run_program(self, program):
+		print('AUX: run program')
+		self.execution_tree = self.interpreter.create_execution_tree(self.naviprogram.program)
+		#Clock.schedule_once(partial(self.run, self.execution_tree[0]), 1)
+		for i in range(4):
+			Clock.schedule_once(partial(self.run, self.execution_tree[i]), i)
+		#self.run(statement)
+
 
 class NaviProgram(BoxLayout):
 
 	program = ListProperty([])
 	interpreter = Interpreter()
-
-	def run_program(self):
-		#print('NaviProgram: I am running the program!')
-		self.interpreter.run(self.program)
-
-	def stop_program(self):
-		print('NaviProgram: I am stopping the progam!')
 
 	def add_statement(self, statement):
 		self.program.append(statement)
