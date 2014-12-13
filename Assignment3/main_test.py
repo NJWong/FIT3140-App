@@ -148,10 +148,8 @@ class test_set_temp_maze(unittest.TestCase):
 		self.test_main = Main(self.test_robot,self.test_maze)
 		self.test_temp_maze = self.test_main.set_temp_maze()
 
-
 	def testOne(self):
-		print(self.test_temp_maze[0][0].desc)
-		self.assertTrue(self.test_temp_maze[0][0].desc==' _ ')
+		self.assertTrue(self.test_temp_maze[3][3].desc==' G ')
 
 
 class test_distance_to_goal(unittest.TestCase):
