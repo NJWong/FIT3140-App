@@ -54,6 +54,8 @@ class ProgramBlock(Button):
 			self.selected = False
 			self.reset_position()
 
+
+
 	def reset_position(self):
 		self.center_x = self.originX
 		self.center_y = self.originY

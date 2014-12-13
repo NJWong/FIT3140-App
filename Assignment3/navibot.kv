@@ -36,11 +36,14 @@
 							ProgramBlock:
 								id: move_block
 								text: 'MOVE'
-								on_touch_up: naviprogram.add_statement(self.text)
+								on_touch_up:
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
 								id: turn_block
 								text: 'TURN'
+								on_touch_up:
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
 								id: misc1
@@ -58,7 +61,7 @@
 						NaviProgram:
 							id: naviprogram
 							Label:
-								text: 'program area'
+								text: str(naviprogram.program)
 
 				Screen:
 					name: 'maze'
