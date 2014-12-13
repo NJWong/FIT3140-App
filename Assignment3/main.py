@@ -95,13 +95,9 @@ class Main:
 			return False
 
 		self.temp_maze[y][x].desc = ' V '
-
-<<<<<<< HEAD
 		if (x<self.maze.length-1 and self.search(x+1,y)) or (y>0 and self.search(x,y-1)) or (x>0 and self.search(x-1,y))or (y<self.maze.length-1 and self.search(x,y+1)):
 			self.dist += 1
-=======
 		if x<self.maze.length-1 and search(x+1,y) or (y>0 and search(x,y-1)) or (x>0 and search(x-1,y)) or (y<self.maze.length-1 and search(x,y+1)):
->>>>>>> basic layout of application complete. skeleton classes for app completed in navibot.py.
 			return True
 
 		return False
