@@ -6,42 +6,67 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.gridlayout import GridLayout
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, ListProperty, NumericProperty, BooleanProperty
 from kivy.uix.button import Button
+from kivy.uix.relativelayout import RelativeLayout
 
 class NaviBot(FloatLayout):
-	#naviblocks = ObjectProperty(None)
+	naviblocks = ObjectProperty(None)
 	naviprogram = ObjectProperty(None)
 	navicontrols = ObjectProperty(None)
 	#navimaze = ObjectProperty(None)
 
-	def run(self):
-		print('NaviBot: RUN!')
+class ProgramBlock(Button):
+	selected = BooleanProperty(False)
+	originX = NumericProperty(None)
+	originY = NumericProperty(None)
+
+	def set_origin(self):
+		self.originX = self.center_x
+		self.originY = self.center_y
+
+	def on_touch_down(self, touch):
+		if self.collide_point(touch.x, touch.y):
+			self.set_origin()
+			self.selected = True
+
+	def on_touch_move(self, touch):
+		if self.selected:
+			self.center_x = touch.x
+			self.center_y = touch.y
+
+	def on_touch_up(self, touch):
+		if self.selected:
+			self.selected = False
+			self.reset_position()
+
+	def reset_position(self):
+		self.center_x = self.originX
+		self.center_y = self.originY
 
 class NaviBlocks(BoxLayout):
-	pass
-
-class NaviProgram(StackLayout):
-	def run_program(self):
-		print('NaviProgram: I am running the program!')
+	move_block = ObjectProperty(None)
+	turn_block = ObjectProperty(None)
 
 class NaviControls(BoxLayout):
 	run_button = ObjectProperty(None)
 	stop_button = ObjectProperty(None)
 
-	def run_button_touched(self):
-		print('NaviControls: recieved message from RunButton')
-
-	def stop_button_touched(self):
-		print('NaviControls: recieved message from StopButton')
-
 class RunButton(Button):
-	def on_press(self):
-		print('RunButton: Start the program!')
+	pass
 
 class StopButton(Button):
-	def on_press(self):
-		print('StopButton: Halt program!')
+	pass
+
+class NaviProgram(StackLayout):
+
+	#program = ListProperty(['m','m','m'])
+
+	def run_program(self):
+		print('NaviProgram: I am running the program!')
+
+	def stop_program(self):
+		print('NaviProgram: I am stopping the progam!')
 
 class NaviMaze(GridLayout):
 	pass

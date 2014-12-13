@@ -1,34 +1,9 @@
 #:kivy 1.8
 
-<RunButton>:
-	text: 'RUN'
-
-<StopButton>:
-	text: 'STOP'
-
-<NaviControls>:
-	run_button: run_button
-	stop_button: stop_button
-
-	BoxLayout:
-		orientation: 'vertical'
-
-		RunButton
-			id: run_button
-			on_press: root.run_button_touched()
-
-		StopButton:
-			id: stop_button
-			on_press:
-				root.stop_button_touched()
-
-<NaviProgram>:
-	Label:
-		text: 'program area'
-
 <NaviBot>:
-	navicontrols: navicontrols
 	naviprogram: naviprogram
+	navicontrols: navicontrols
+	naviblocks: naviblocks
 
 	BoxLayout:
 		orientation: 'vertical'
@@ -47,12 +22,27 @@
 						cols: 2
 
 						# NaviBlocks
-						Button:
-							text: 'NaviBlocks'
+						NaviBlocks:
+							move_block: move_block
+							turn_block: turn_block
+							id: naviblocks
+							orientation: 'vertical'
+							cols: 3
+							rows: 3
+
+							ProgramBlock:
+								id: move_block
+								text: 'MOVE'
+
+							ProgramBlock:
+								id: turn_block
+								text: 'TURN'
 
 						# NaviProgram
 						NaviProgram:
 							id: naviprogram
+							Label:
+								text: 'program area'
 
 				Screen:
 					name: 'maze'
@@ -60,15 +50,24 @@
 					GridLayout:
 						cols: 2
 
-						# NaviControls
 						NaviControls:
 							id: navicontrols
 							size_hint: 0.15, 1
+							orientation: 'vertical'
+
+							RunButton:
+								id: run_button
+								text: 'RUN'
+								on_press: naviprogram.run_program()
+
+							StopButton:
+								id: stop_button
+								text: 'STOP'
+								on_press: naviprogram.stop_program()
 
 						# NaviMaze
 						Button:
 							text: 'NaviMaze'
-							on_press: naviprogram.run_program()
 
 		BoxLayout:
 			orientation: 'horizontal'
