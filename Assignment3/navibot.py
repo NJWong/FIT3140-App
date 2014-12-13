@@ -16,18 +16,29 @@ class NaviBot(FloatLayout):
 	navicontrols = ObjectProperty(None)
 	#navimaze = ObjectProperty(None)
 
-class NaviProgram(StackLayout):
+class Interpreter():
+	def __init__(self):
+		self.running = False
+
+	def run(self, program):
+		for statement in program:
+			print(statement)
+
+class NaviProgram(BoxLayout):
 
 	program = ListProperty([])
+	interpreter = Interpreter()
 
 	def run_program(self):
-		print('NaviProgram: I am running the program!')
+		#print('NaviProgram: I am running the program!')
+		self.interpreter.run(self.program)
 
 	def stop_program(self):
 		print('NaviProgram: I am stopping the progam!')
 
 	def add_statement(self, statement):
 		self.program.append(statement)
+		self.add_widget(Button(text=statement))
 		print(self.program)
 
 class ProgramBlock(Button):
@@ -53,8 +64,6 @@ class ProgramBlock(Button):
 		if self.selected:
 			self.selected = False
 			self.reset_position()
-
-
 
 	def reset_position(self):
 		self.center_x = self.originX
