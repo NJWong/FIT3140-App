@@ -89,6 +89,14 @@
 								id: move_robot
 								text: 'Move'
 								on_press: navimaze.move_robot()
+							Button:
+								id: turn_anticlockwise
+								text: 'anti'
+								on_press: navimaze.turn_anticlockwise()
+							Button:
+								id: turn_clockwise
+								text: 'clock'
+								on_press: navimaze.turn_clockwise()
 							Label:
 								text: str('Direction: ' + navimaze.robot.direction)
 

@@ -100,6 +100,7 @@ class Robot(Button):
 	posX = NumericProperty(0) # Hard coded for now
 	posY = NumericProperty(0) # Hard coded for now
 	direction = StringProperty('E') # Hard coded for now
+	direction_list = ListProperty(['N', 'E', 'S', 'W'])
 
 	def move_forward(self):
 		if self.direction == 'N':
@@ -113,8 +114,21 @@ class Robot(Button):
 		else:
 			print('invalid direction')
 
-	def turn(self):
-		pass
+	def turn(self, clockwise_flag, n):
+		# TODO: could optimise the assignments and checking here
+		for i in range(n):
+			current_dir = self.direction_list.index(self.direction)
+			# if clockwise == 1, turn clockwise
+			if clockwise_flag == 1:
+				new_dir = (current_dir + 1) % 4
+			# if clockwise == 0, turn anticlockwise
+			elif clockwise_flag == 0:
+				new_dir = (current_dir - 1) % 4
+			else:
+				print("robot -> turn(): invalid clockwise_flag value")
+				new_dir = current_dir
+
+			self.direction = self.direction_list[new_dir]
 
 class NaviMaze(GridLayout):
 	maze = ListProperty([
@@ -143,6 +157,12 @@ class NaviMaze(GridLayout):
 		if self.generated:
 			self.maze[self.robot.posY][self.robot.posX] = 'R'
 			self.update_maze()
+
+	def turn_clockwise(self):
+		self.robot.turn(1,1)
+
+	def turn_anticlockwise(self):
+		self.robot.turn(0,1)
 
 	def move_robot(self):
 		if self.robot_can_move():
