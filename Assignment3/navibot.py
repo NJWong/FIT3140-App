@@ -6,15 +6,16 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.gridlayout import GridLayout
-from kivy.properties import ObjectProperty, ListProperty, NumericProperty, BooleanProperty
+from kivy.properties import ObjectProperty, ListProperty, NumericProperty, BooleanProperty, DictProperty, StringProperty
 from kivy.uix.button import Button
+from kivy.uix.label import Label
 from kivy.uix.relativelayout import RelativeLayout
 
 class NaviBot(FloatLayout):
 	naviblocks = ObjectProperty(None)
 	naviprogram = ObjectProperty(None)
 	navicontrols = ObjectProperty(None)
-	#navimaze = ObjectProperty(None)
+	navimaze = ObjectProperty(None)
 
 class Interpreter():
 	def __init__(self):
@@ -86,12 +87,100 @@ class RunButton(Button):
 class StopButton(Button):
 	pass
 
+class ClearTile(Button):
+	collide = BooleanProperty(False)
+
+class WallTile(Button):
+	collide = BooleanProperty(True)
+
+class GoalTile(Button):
+	collide = BooleanProperty(False)
+
+class Robot(Button):
+	posX = NumericProperty(0) # Hard coded for now
+	posY = NumericProperty(0) # Hard coded for now
+	direction = StringProperty('E') # Hard coded for now
+
+	def move_forward(self):
+		if self.direction == 'N':
+			self.posY -= 1
+		elif self.direction == 'E':
+			self.posX += 1
+		elif self.direction == 'S':
+			self.posY += 1
+		elif self.direction == 'W':
+			self.posX -= 1
+		else:
+			print('invalid direction')
+
+	def turn(self):
+		pass
+
 class NaviMaze(GridLayout):
-	pass
+	maze = ListProperty([
+			['C','C','C','W','W'],
+			['W','W','C','W','W'],
+			['W','W','C','W','W'],
+			['W','W','C','G','W'],
+			['W','W','W','W','W']])
+	maze_length = NumericProperty(4)
+	generated = BooleanProperty(False)
+	tile_dict = DictProperty({'C':(0,1,0,1), 'W':(1,0,0,1), 'G':(0,0,1,1), 'R':(1,1,1,1)})
+	robot = Robot()
+
+	def initialize(self):
+		self.generate_maze()
+		self.insert_robot()
+
+	def generate_maze(self):
+		if not self.generated:
+			for row in self.maze:
+				for tile in row:
+					self.add_widget(Button(text=tile, background_color=self.tile_dict[tile]))
+			self.generated = True
+
+	def insert_robot(self):
+		if self.generated:
+			self.maze[self.robot.posY][self.robot.posX] = 'R'
+			self.update_maze()
+
+	def move_robot(self):
+		if self.robot_can_move():
+			self.maze[self.robot.posY][self.robot.posX] = 'C'
+			self.robot.move_forward()
+			self.maze[self.robot.posY][self.robot.posX] = 'R'
+			self.update_maze()
+
+	def robot_can_move(self):
+		if self.robot.direction == 'N':
+			return self.robot.posY > 0 and self.robot.posY <= self.maze_length and not self.detect_wall()
+		elif self.robot.direction == 'E':
+			return self.robot.posX >= 0 and self.robot.posX < self.maze_length and not self.detect_wall()
+		elif self.robot.direction == 'S':
+			return self.robot.posY >= 0 and self.robot.posY < self.maze_length and not self.detect_wall()
+		elif self.robot.direction == 'W':
+			return self.robot.posX > 0 and self.robot.posX <= self.maze_length and not self.detect_wall()
+
+	def detect_wall(self):
+		if self.robot.direction=='N':
+			return self.maze[self.robot.posY - 1][self.robot.posX] == 'W'
+		elif self.robot.direction =='E':
+			return self.maze[self.robot.posY][self.robot.posX + 1] == 'W'
+		elif self.robot.direction =='S':
+			return self.maze[self.robot.posY + 1][self.robot.posX] == 'W'
+		elif self.robot.direction =='W':
+			return self.maze[self.robot.posY][self.robot.posX - 1] == 'W'
+
+	def update_maze(self):
+		self.clear_widgets() # inefficient... essentially destroying and recreating objects every call
+		for row in self.maze:
+			for tile in row:
+				self.add_widget(Button(text=tile, background_color=self.tile_dict[tile]))
 
 class NaviBotApp(App):
 	def build(self):
 		navibot = NaviBot()
+		navibot.navimaze.initialize()
 		return navibot
 
 if __name__ == '__main__':

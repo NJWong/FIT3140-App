@@ -4,6 +4,7 @@
 	naviprogram: naviprogram
 	navicontrols: navicontrols
 	naviblocks: naviblocks
+	navimaze: navimaze
 
 	BoxLayout:
 		orientation: 'vertical'
@@ -75,19 +76,27 @@
 							size_hint: 0.15, 1
 							orientation: 'vertical'
 
-							RunButton:
+							Button:
 								id: run_button
 								text: 'RUN'
 								on_press: naviprogram.run_program()
 
-							StopButton:
+							Button:
 								id: stop_button
 								text: 'STOP'
 								on_press: naviprogram.stop_program()
+							Button:
+								id: move_robot
+								text: 'Move'
+								on_press: navimaze.move_robot()
+							Label:
+								text: str('Direction: ' + navimaze.robot.direction)
 
 						# NaviMaze
-						Button:
-							text: 'NaviMaze'
+						NaviMaze:
+							id: navimaze
+							cols: 5
+							rows: 5
 
 		BoxLayout:
 			orientation: 'horizontal'
