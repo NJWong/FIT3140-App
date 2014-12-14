@@ -1,0 +1,119 @@
+#:kivy 1.8
+
+<NaviBot>:
+	naviprogram: naviprogram
+	navicontrols: navicontrols
+	naviblocks: naviblocks
+	navimaze: navimaze
+
+	BoxLayout:
+		orientation: 'vertical'
+
+		BoxLayout:
+			orientation: 'horizontal'
+
+			ScreenManager:
+				id: screen_manager
+				#size_hint: 1, 0.9
+				
+				Screen:
+					name: 'programming'
+
+					GridLayout:
+						cols: 2
+
+						# NaviBlocks
+						NaviBlocks:
+							move_block: move_block
+							turn_a: turn_a
+							turn_c: turn_c
+							detect_distance: detect_distance
+							misc3: misc3
+
+							id: naviblocks
+							orientation: 'vertical'
+							padding: 10,10
+
+							ProgramBlock:
+								id: move_block
+								text: 'MOVE'
+								on_touch_up:
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+							ProgramBlock:
+								id: turn_a
+								text: 'TURN_A'
+								on_touch_up:
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+							ProgramBlock:
+								id: turn_c
+								text: 'TURN_C'
+								on_touch_up:
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+							ProgramBlock:
+								id: detect_distance
+								text: 'DETECT'
+								on_touch_up:
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+							ProgramBlock:
+								id: misc3
+								text: 'misc3'
+
+						# NaviProgram
+						NaviProgram:
+							id: naviprogram
+							orientation: 'vertical'
+							#Label:
+								#text: str(naviprogram.program)
+
+				Screen:
+					name: 'maze'
+
+					GridLayout:
+						cols: 2
+
+						NaviControls:
+							id: navicontrols
+							size_hint: 0.15, 1
+							orientation: 'vertical'
+
+							Button:
+								id: run_button
+								text: 'RUN'
+								#on_press: naviprogram.run_program()
+								on_press: root.run_program(naviprogram.program)
+
+							Button:
+								id: stop_button
+								text: 'STOP'
+								#on_press: naviprogram.stop_program()
+							Label:
+								text: 'Direction: ' + str(navimaze.robot.direction)
+							Label:
+								text: 'Distance: ' + str(navimaze.robot.distance_to_wall)
+
+						# NaviMaze
+						NaviMaze:
+							id: navimaze
+							cols: 5
+							rows: 5
+
+		BoxLayout:
+			orientation: 'horizontal'
+			size_hint: 1, 0.1
+
+			# Screen Controller
+			Button:
+				text: 'Programming'
+				on_press:
+					screen_manager.transition.direction = 'right'
+					screen_manager.current = 'programming'
+
+			Button:
+				text: 'Maze'
+				on_press:
+					screen_manager.transition.direction = 'left'
+					screen_manager.current = 'maze'
