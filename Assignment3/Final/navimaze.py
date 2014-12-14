@@ -75,6 +75,7 @@ class NaviMaze(GridLayout):
 			self.update_maze()
 			# Check to see if the robot has arrived at the Goal tile
 			if self.detect_win():
+				# handle the win state
 				self.show_win()
 
 	def robot_can_move(self):
@@ -179,8 +180,9 @@ class NaviMaze(GridLayout):
 		return self.dist
 
 	def show_win(self):
-		#print('win')
+		# Clear the maze
 		self.clear_widgets(self.children)
+		# Replace it with a win message
 		self.add_widget(Label(text='YOU WIN!'))
 
 	def update_maze(self):
