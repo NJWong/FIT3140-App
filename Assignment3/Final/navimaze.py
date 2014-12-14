@@ -4,6 +4,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.properties import ListProperty, NumericProperty, BooleanProperty, DictProperty
 
 class NaviMaze(GridLayout):
+	# maze is hard coded for now
 	maze = ListProperty([
 			['C','C','C','W','W'],
 			['W','W','C','W','W'],
@@ -16,10 +17,16 @@ class NaviMaze(GridLayout):
 	robot = Robot()
 
 	def initialize(self):
+		'''
+		Function that initalises the maze and inserts a robot into it.
+		'''
 		self.generate_maze()
 		self.insert_robot()
 
 	def generate_maze(self):
+		'''
+		Function to generate a mase based on the ListProperty defined in self.maze
+		'''
 		if not self.generated:
 			for row in self.maze:
 				for tile in row:
@@ -27,24 +34,48 @@ class NaviMaze(GridLayout):
 			self.generated = True
 
 	def insert_robot(self):
+		'''
+		Function that inserts the robot into the maze.
+		'''
 		if self.generated:
 			self.maze[self.robot.posY][self.robot.posX] = 'R'
 			self.update_maze()
 
 	def turn_clockwise(self):
+		'''
+		Function that turns the robot in a clockwise direction.
+		Robot stays in the same position.
+		'''
 		self.robot.turn(1,1) # change this to accommodate 'n' rotations
 
 	def turn_anticlockwise(self):
+		'''
+		Function that turns the robot in an anticlockwise direction.
+		Robot stays in the same position.
+		'''
 		self.robot.turn(0,1) # change this to accommodate 'n' rotations
 
 	def move_robot(self):
+		'''
+		Function that moves the robot forward one tile.
+		'''
+
+		# Handle wall collision.
 		if self.robot_can_move():
+			# Change the robot's position before the move to a Clear tile
 			self.maze[self.robot.posY][self.robot.posX] = 'C'
 			self.robot.move_forward()
+			# Update the robot's new position
 			self.maze[self.robot.posY][self.robot.posX] = 'R'
+			# Update the maze
 			self.update_maze()
 
 	def robot_can_move(self):
+		'''
+		Function that determines if the robot can move forward or not.
+		Returns True if the robot can move forward, False otherwise
+		Includes wall collisions as well as maze boundary collisions.
+		'''
 		if self.robot.direction == 'N':
 			return self.robot.posY > 0 and self.robot.posY <= self.maze_length and not self.detect_wall()
 		elif self.robot.direction == 'E':
@@ -55,6 +86,10 @@ class NaviMaze(GridLayout):
 			return self.robot.posX > 0 and self.robot.posX <= self.maze_length and not self.detect_wall()
 
 	def detect_wall(self):
+		'''
+		A function that detects if there is a wall directly in front of the robot.
+		Returns True if there is, False otherwise.
+		'''
 		if self.robot.direction=='N':
 			return self.maze[self.robot.posY - 1][self.robot.posX] == 'W'
 		elif self.robot.direction =='E':
