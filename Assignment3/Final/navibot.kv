@@ -27,7 +27,7 @@
 							move_block: move_block
 							turn_a: turn_a
 							turn_c: turn_c
-							misc2: misc2
+							detect_distance: detect_distance
 							misc3: misc3
 
 							id: naviblocks
@@ -53,8 +53,10 @@
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
-								id: misc2
-								text: 'misc2'
+								id: detect_distance
+								text: 'DETECT'
+								on_touch_up:
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
 								id: misc3
@@ -89,7 +91,9 @@
 								text: 'STOP'
 								#on_press: naviprogram.stop_program()
 							Label:
-								text: str('Direction: ' + navimaze.robot.direction)
+								text: 'Direction: ' + str(navimaze.robot.direction)
+							Label:
+								text: 'Distance: ' + str(navimaze.robot.distance_to_wall)
 
 						# NaviMaze
 						NaviMaze:

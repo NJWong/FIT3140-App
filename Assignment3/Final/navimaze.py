@@ -2,6 +2,7 @@ from robot import *
 
 from kivy.uix.gridlayout import GridLayout
 from kivy.properties import ListProperty, NumericProperty, BooleanProperty, DictProperty
+from kivy.uix.label import Label
 
 class NaviMaze(GridLayout):
 	# maze is hard coded for now
@@ -12,6 +13,8 @@ class NaviMaze(GridLayout):
 			['W','W','C','G','W'],
 			['W','W','W','W','W']])
 	maze_length = NumericProperty(4)
+	goal_posX = NumericProperty(3) # hard coded for now
+	goal_posY = NumericProperty(3) # hard coded for now
 	generated = BooleanProperty(False)
 	tile_dict = DictProperty({'C':(0,1,0,1), 'W':(1,0,0,1), 'G':(0,0,1,1), 'R':(1,1,1,1)})
 	robot = Robot()
@@ -57,7 +60,8 @@ class NaviMaze(GridLayout):
 
 	def move_robot(self):
 		'''
-		Function that moves the robot forward one tile.
+		Function that moves the robot forward one tile. Also checks whether
+		the robot has arrived at the Goal tile.
 		'''
 
 		# Handle wall collision.
@@ -69,6 +73,9 @@ class NaviMaze(GridLayout):
 			self.maze[self.robot.posY][self.robot.posX] = 'R'
 			# Update the maze
 			self.update_maze()
+			# Check to see if the robot has arrived at the Goal tile
+			if self.detect_win():
+				self.show_win()
 
 	def robot_can_move(self):
 		'''
@@ -117,6 +124,7 @@ class NaviMaze(GridLayout):
 			elif self.robot.direction=='W':
 				x -= 1
 			distance += 1
+		self.robot.distance_to_wall = distance
 		return distance
 
 	def detect_win(self):
@@ -125,7 +133,7 @@ class NaviMaze(GridLayout):
 		if yes, return True (probably later, when detect True, it will call sth to end the app); 
 		if not, return False
 		"""
-		return self.maze.maze[self.robot.posX][self.robot.posY] == 'G'
+		return self.robot.posY == self.goal_posY and self.robot.posX == self.goal_posX
 
 	def set_temp_maze(self):
 		"""
@@ -169,6 +177,11 @@ class NaviMaze(GridLayout):
 		self.temp_maze = self.set_temp_maze()
 		self.search(self.robot.posX, self.robot.posY)
 		return self.dist
+
+	def show_win(self):
+		#print('win')
+		self.clear_widgets(self.children)
+		self.add_widget(Label(text='YOU WIN!'))
 
 	def update_maze(self):
 		self.clear_widgets() # inefficient... essentially destroying and recreating objects every call

@@ -10,6 +10,7 @@ class Robot(Button):
 	posY = NumericProperty(0) # Hard coded for now
 	direction = StringProperty('E') # Hard coded for now
 	direction_list = ListProperty(['N', 'E', 'S', 'W'])
+	distance_to_wall = NumericProperty(None)
 
 	def move_forward(self):
 		'''

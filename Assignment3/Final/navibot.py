@@ -37,7 +37,10 @@ class NaviBot(FloatLayout):
 		
 		# Setting up a clock schedule for each statement so there is a visible delay between statement execution.
 		for i in range(len(self.execution_tree)):
-			Clock.schedule_once(partial(self.run, self.execution_tree[i]), i)
+			try:
+				Clock.schedule_once(partial(self.run, self.execution_tree[i]), i)
+			except KeyError:
+				print('Unknown statement: skipping execution')
 
 	def run(self, statement, dt):
 		'''

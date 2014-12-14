@@ -9,7 +9,8 @@ class Interpreter:
 		self.function_dict = {
 		'MOVE':'move_robot()',
 		'TURN_A':'turn_anticlockwise()',
-		'TURN_C': 'turn_clockwise()'
+		'TURN_C': 'turn_clockwise()',
+		'DETECT': 'distance_to_wall()'
 		}
 
 	def create_execution_tree(self, program):
@@ -27,4 +28,8 @@ class Interpreter:
 		'''
 		returns the appropriate function to be called inside NaviBot.py
 		'''
-		return 'self.navimaze.'+self.function_dict[statement]
+		try:
+			return 'self.navimaze.'+self.function_dict[statement]
+		except KeyError:
+			print('Statement not recognised: passing')
+			return 'pass'

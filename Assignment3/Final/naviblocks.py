@@ -9,8 +9,7 @@ class NaviBlocks(BoxLayout):
 	'''
 	move_block = ObjectProperty(None)
 	turn_block = ObjectProperty(None)
+	detect_distance = ObjectProperty(None)
 	
 	# Below are dummy ProgramBlocks to show that this class is easy to extend.
-	misc1 = ObjectProperty(None)
-	misc2 = ObjectProperty(None)
 	misc3 = ObjectProperty(None)
