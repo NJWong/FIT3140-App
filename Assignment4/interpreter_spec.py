@@ -9,16 +9,15 @@ class test_data_types(unittest.TestCase):
 
 	# Test Integer type
 	def testOne(self):
-		pass
-		#self.assertTrue(type(self.test_interpreter.Integer) is type(int))
+		self.assertTrue(type(self.test_interpreter.Integer) is type(int))
 
 	# Test Boolean type
 	def testTwo(self):
-		pass
+		self.assertTrue(type(self.test_interpreter.Boolean) is type(bool))
 
 	# Test List type
 	def testThree(self):
-		pass
+		self.assertTrue(type(self.test_interpreter.List) is type(list))
 
 # Testing mathematical operations
 class test_math_operations(unittest.TestCase):
