@@ -191,3 +191,11 @@ class NaviMaze(GridLayout):
 		for row in self.maze:
 			for tile in row:
 				self.add_widget(Button(text=tile, background_color=self.tile_dict[tile]))
+
+	def reset_robot_position(self):
+		self.maze[self.robot.posY][self.robot.posX] = 'C'
+		self.robot.posX = 0
+		self.robot.posY = 0
+		self.robot.direction = 'E'
+		self.maze[self.robot.posY][self.robot.posX] = 'R'
+		self.update_maze()

@@ -89,9 +89,9 @@
 								on_press: root.run_program(naviprogram.program)
 
 							Button:
-								id: stop_button
-								text: 'STOP'
-								#on_press: naviprogram.stop_program()
+								id: reset_button
+								text: 'RESET'
+								on_press: naviprogram.reset(), navimaze.reset_robot_position()
 							Label:
 								text: 'Direction: ' + str(navimaze.robot.direction)
 							Label:

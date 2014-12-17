@@ -8,6 +8,7 @@ from navimaze import *
 from naviprogram import *
 from naviblocks import *
 from navicontrols import *
+from robot import *
 
 # Import kivy functionality
 from kivy.app import App
@@ -28,7 +29,7 @@ class NaviBot(FloatLayout):
 	navimaze = ObjectProperty(None)
 	interpreter = Interpreter()
 	execution_tree = ListProperty(None)
-
+	
 	def run_program(self, program):
 		'''
 		Take the program defined in NaviProgram and pass it to the interpreter to run.

@@ -47,3 +47,4 @@ class Robot(Button):
 				new_dir = current_dir
 
 			self.direction = self.direction_list[new_dir]
+			
