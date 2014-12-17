@@ -22,6 +22,9 @@ class Interpreter:
 		self.operator_dict = {
 		'add':op.add, 'sub':op.sub, 'mult':op.mul, 'div':op.div, 'mod':op.mod
 		}
+		self.boolean_dict = {
+		'==':op.eq, '<':op.lt, '>':op.gt
+		}
 
 	def create_execution_tree(self, program):
 		'''
