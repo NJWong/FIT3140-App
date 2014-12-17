@@ -3,7 +3,13 @@ class Interpreter:
 	The interpreter class that defines the functions and algorithms to read,
 	parse, and evaluate a program.
 	'''
+	# Basic data types defined in terms of python data types
+	Integer = int
+	Boolean = bool
+	List = list
+
 	def __init__(self):
+		import math, operator as op
 		self.running = False
 		# Statements found in NaviProgram.py are mapped to functions to be called in NaviBot.py
 		self.function_dict = {
@@ -12,6 +18,9 @@ class Interpreter:
 		'TURN_C': 'turn_clockwise()',
 		'DISTANCE_W': 'distance_to_wall()',
 		'DISTANCE_G': 'distance_to_goal()'
+		}
+		self.operator_dict = {
+		'add':op.add, 'sub':op.sub, 'mult':op.mul, 'div':op.div, 'mod':op.mod
 		}
 
 	def create_execution_tree(self, program):
