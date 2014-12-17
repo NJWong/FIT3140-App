@@ -10,7 +10,8 @@ class Interpreter:
 		'MOVE':'move_robot()',
 		'TURN_A':'turn_anticlockwise()',
 		'TURN_C': 'turn_clockwise()',
-		'DETECT': 'distance_to_wall()'
+		'DISTANCE_W': 'distance_to_wall()',
+		'DISTANCE_G': 'distance_to_goal()'
 		}
 
 	def create_execution_tree(self, program):

@@ -141,11 +141,11 @@ class NaviMaze(GridLayout):
 		Create a temp maze for function search to use
 		in order not to affect the original maze.
 		"""
-		temp_maze = [[0 for x in range(self.maze.length)] for x in range(self.maze.length)]
+		temp_maze = [[0 for x in range(self.maze_length)] for x in range(self.maze_length)]
 
-		for row in range(self.maze.length):
-			for column in range(self.maze.length):
-				temp_maze[row][column] = self.maze.maze[row][column]
+		for row in range(self.maze_length):
+			for column in range(self.maze_length):
+				temp_maze[row][column] = self.maze[row][column]
 		return temp_maze
 
 	def search(self,x,y):
@@ -160,7 +160,7 @@ class NaviMaze(GridLayout):
 			return False
 
 		self.temp_maze[y][x] = 'V'
-		if (x<self.maze.length-1 and self.search(x+1,y)) or (y>0 and self.search(x,y-1)) or (x>0 and self.search(x-1,y))or (y<self.maze.length-1 and self.search(x,y+1)):
+		if (x<self.maze_length-1 and self.search(x+1,y)) or (y>0 and self.search(x,y-1)) or (x>0 and self.search(x-1,y))or (y<self.maze_length-1 and self.search(x,y+1)):
 			self.dist += 1
 			return True
 
@@ -177,6 +177,7 @@ class NaviMaze(GridLayout):
 		self.dist = 0
 		self.temp_maze = self.set_temp_maze()
 		self.search(self.robot.posX, self.robot.posY)
+		self.robot.distance_to_goal = self.dist
 		return self.dist
 
 	def show_win(self):

@@ -27,8 +27,8 @@
 							move_block: move_block
 							turn_a: turn_a
 							turn_c: turn_c
-							detect_distance: detect_distance
-							misc3: misc3
+							distance_to_wall: distance_to_wall
+							distance_to_goal: distance_to_goal
 
 							id: naviblocks
 							orientation: 'vertical'
@@ -53,14 +53,16 @@
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
-								id: detect_distance
-								text: 'DETECT'
+								id: distance_to_wall
+								text: 'DISTANCE_W'
 								on_touch_up:
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
-								id: misc3
-								text: 'misc3'
+								id: distance_to_goal
+								text: 'DISTANCE_G'
+								on_touch_up:
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 						# NaviProgram
 						NaviProgram:
@@ -94,6 +96,8 @@
 								text: 'Direction: ' + str(navimaze.robot.direction)
 							Label:
 								text: 'Distance: ' + str(navimaze.robot.distance_to_wall)
+							Label:
+								text: 'D to G: ' + str(navimaze.robot.distance_to_goal)
 
 						# NaviMaze
 						NaviMaze:
