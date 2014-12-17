@@ -8,6 +8,11 @@ class Interpreter:
 	Boolean = bool
 	List = list
 
+	name = ''
+	value = ''
+
+	global name, value
+
 	def __init__(self):
 		import math, operator as op
 		self.running = False
@@ -18,6 +23,7 @@ class Interpreter:
 		'TURN_C': 'turn_clockwise()',
 		'DISTANCE_W': 'distance_to_wall()',
 		'DISTANCE_G': 'distance_to_goal()'
+		#'SET %s TO %s' % (name,value): 'set_var(%s, %s)' % (name, value) #not sure...
 		}
 		self.operator_dict = {
 		'add':op.add, 'sub':op.sub, 'mult':op.mul, 'div':op.div, 'mod':op.mod

@@ -8,4 +8,4 @@ class NaviControls(BoxLayout):
 	Currently defines Run and Stop.
 	'''
 	run_button = ObjectProperty(None) # Runs the program
-	stop_button = ObjectProperty(None) # Stops the program execution (NOT IMPLEMENTED YET!)
+	reset_button = ObjectProperty(None) # reset the program execution (NOT IMPLEMENTED YET!)

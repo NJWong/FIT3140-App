@@ -13,9 +13,11 @@ from robot import *
 # Import kivy functionality
 from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout
-from kivy.properties import ObjectProperty, ListProperty
+from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import ObjectProperty, ListProperty, StringProperty
 from kivy.clock import Clock
 from functools import partial
+from kivy.uix.textinput import TextInput
 
 class NaviBot(FloatLayout):
 	'''
@@ -49,6 +51,21 @@ class NaviBot(FloatLayout):
 		This function is then executed here.
 		'''
 		exec(statement)
+
+class Input(GridLayout):
+	def __init__(self, **kwargs):
+		super(kivyentrywidget, self).__init__(**kwargs)
+		self.cols = 2
+		self.add_widget(Label(text='What do you want to print?'))
+		self.text_input = TextInput(multiline=False)
+		self.add_widget(self.text_input)
+		self.printbutton = Button(text='Print')
+		self.printbutton.bind(on_press=callback)
+		self.add_widget(self.printbutton)
+
+	def callback(self):
+		return Label(text=self.text_input.text)
+
 
 class NaviBotApp(App):
 	def build(self):

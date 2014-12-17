@@ -10,6 +10,6 @@ class NaviBlocks(BoxLayout):
 	move_block = ObjectProperty(None)
 	turn_block = ObjectProperty(None)
 	distance_to_wall = ObjectProperty(None)
-	
-	# Below are dummy ProgramBlocks to show that this class is easy to extend.
 	distance_to_goal = ObjectProperty(None)
+	set_var = ObjectProperty(None)
+	

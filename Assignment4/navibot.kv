@@ -29,6 +29,7 @@
 							turn_c: turn_c
 							distance_to_wall: distance_to_wall
 							distance_to_goal: distance_to_goal
+							#set_var: set_var
 
 							id: naviblocks
 							orientation: 'vertical'
@@ -64,6 +65,25 @@
 								on_touch_up:
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
+							ProgramBlock:
+								#id: set_var
+								BoxLayout:
+									orientation: 'vertical'
+									Label:
+										text1: 'SET '
+									TextInput:
+										id: input1
+										text:
+									Label:
+										text2: ' TO '
+									TextInput:
+										id: input2
+										text:
+
+								#on_touch_up: if self.selected and self.center_x > root.center_x: naviprogram.add_statement(str(self.text1) + str(self.text2))
+								
+
+
 						# NaviProgram
 						NaviProgram:
 							id: naviprogram
@@ -77,6 +97,7 @@
 					GridLayout:
 						cols: 2
 
+						#might edit navicontrols later
 						NaviControls:
 							id: navicontrols
 							size_hint: 0.15, 1
@@ -98,6 +119,7 @@
 								text: 'Distance: ' + str(navimaze.robot.distance_to_wall)
 							Label:
 								text: 'D to G: ' + str(navimaze.robot.distance_to_goal)
+
 
 						# NaviMaze
 						NaviMaze:
