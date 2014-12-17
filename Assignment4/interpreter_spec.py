@@ -28,6 +28,7 @@ class test_math_operations(unittest.TestCase):
 		self.operand3 = 10
 		self.operand4 = 50
 		self.operand5 = 100
+		# TODO: add non-integer values
 
 	# Test add operator
 	def testOne(self):
@@ -68,6 +69,48 @@ class test_math_operations(unittest.TestCase):
 		self.assertTrue(self.test_interpreter.operator_dict['mod'](self.operand1, self.operand3) == 1)
 		self.assertTrue(self.test_interpreter.operator_dict['mod'](self.operand1, self.operand4) == 1)
 		self.assertTrue(self.test_interpreter.operator_dict['mod'](self.operand1, self.operand5) == 1)
+
+# Testing boolean operations
+class test_boolean_operations(unittest.TestCase):
+
+	def setUp(self):
+		self.test_interpreter = Interpreter()
+		self.operand1 = 1
+		self.operand2 = 2
+		self.operand3 = 3
+		# TODO: add non-integer values
+
+	# Test equality '==' operator
+	def testOne(self):
+		self.assertTrue(self.test_interpreter.boolean_dict['=='](self.operand1, self.operand1))
+		self.assertTrue(not self.test_interpreter.boolean_dict['=='](self.operand1, self.operand2))
+		self.assertTrue(not self.test_interpreter.boolean_dict['=='](self.operand1, self.operand3))
+		self.assertTrue(self.test_interpreter.boolean_dict['=='](self.operand2, self.operand2))
+		self.assertTrue(not self.test_interpreter.boolean_dict['=='](self.operand2, self.operand3))
+		self.assertTrue(self.test_interpreter.boolean_dict['=='](self.operand3, self.operand3))
+
+	# Test less than '<' operator
+	def testTwo(self):
+		self.assertTrue(not self.test_interpreter.boolean_dict['<'](self.operand1, self.operand1))
+		self.assertTrue(self.test_interpreter.boolean_dict['<'](self.operand1, self.operand2))
+		self.assertTrue(self.test_interpreter.boolean_dict['<'](self.operand1, self.operand3))
+		self.assertTrue(not self.test_interpreter.boolean_dict['<'](self.operand2, self.operand2))
+		self.assertTrue(self.test_interpreter.boolean_dict['<'](self.operand2, self.operand3))
+		self.assertTrue(not self.test_interpreter.boolean_dict['<'](self.operand3, self.operand1))
+		self.assertTrue(not self.test_interpreter.boolean_dict['<'](self.operand3, self.operand2))
+		self.assertTrue(not self.test_interpreter.boolean_dict['<'](self.operand3, self.operand3))
+
+	# Test greater than '>' operator
+	def testThree(self):
+		self.assertTrue(not self.test_interpreter.boolean_dict['>'](self.operand1, self.operand1))
+		self.assertTrue(not self.test_interpreter.boolean_dict['>'](self.operand1, self.operand2))
+		self.assertTrue(not self.test_interpreter.boolean_dict['>'](self.operand1, self.operand3))
+		self.assertTrue(self.test_interpreter.boolean_dict['>'](self.operand2, self.operand1))
+		self.assertTrue(not self.test_interpreter.boolean_dict['>'](self.operand2, self.operand2))
+		self.assertTrue(not self.test_interpreter.boolean_dict['>'](self.operand2, self.operand3))
+		self.assertTrue(self.test_interpreter.boolean_dict['>'](self.operand3, self.operand1))
+		self.assertTrue(self.test_interpreter.boolean_dict['>'](self.operand3, self.operand2))
+		self.assertTrue(not self.test_interpreter.boolean_dict['>'](self.operand3, self.operand3))
 
 def main():
 	unittest.main()
