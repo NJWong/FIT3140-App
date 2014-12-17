@@ -29,7 +29,7 @@
 							turn_c: turn_c
 							distance_to_wall: distance_to_wall
 							distance_to_goal: distance_to_goal
-							#set_var: set_var
+							set_var: set_var
 
 							id: naviblocks
 							orientation: 'vertical'
@@ -66,7 +66,10 @@
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
-								#id: set_var
+								id: set_var
+								text: 'SET (\'variable name\') TO (\'value\')'
+								on_touch_up: if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+								
 								BoxLayout:
 									orientation: 'vertical'
 									Label:
@@ -80,7 +83,7 @@
 										id: input2
 										text:
 
-								#on_touch_up: if self.selected and self.center_x > root.center_x: naviprogram.add_statement(str(self.text1) + str(self.text2))
+								
 								
 
 
