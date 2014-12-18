@@ -31,6 +31,7 @@
 							distance_to_goal: distance_to_goal
 							set_var: set_var
 							take_inputs: take_inputs
+							take_n: take_n
 
 							id: naviblocks
 							orientation: 'vertical'
@@ -38,19 +39,25 @@
 
 							ProgramBlock:
 								id: move_block
-								text: 'MOVE'
+								text: 'MOVE N Steps'
+								on_touch_up: 
+									if self.selected and self.center_x > 0 and self.center_x<root.center_x: move_block.text = 'MOVE ' + t3.text + ' Steps'
 								on_touch_up:
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
 								id: turn_a
-								text: 'TURN_A'
+								text: 'TURN_A N Times'
+								on_touch_up: 
+									if self.selected and self.center_x > 0 and self.center_x<root.center_x: turn_a.text = 'TURN_A ' + t3.text + ' Times'
 								on_touch_up:
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
 								id: turn_c
-								text: 'TURN_C'
+								text: 'TURN_C N Times'
+								on_touch_up: 
+									if self.selected and self.center_x > 0 and self.center_x<root.center_x: turn_c.text = 'TURN_C ' + t3.text + ' Times'
 								on_touch_up:
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
@@ -64,11 +71,14 @@
 								id: distance_to_goal
 								text: 'DISTANCE_G'
 								on_touch_up:
-									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.
+									text)
 
 							ProgramBlock:
 								id: set_var
-								text: 'SET '+ take_inputs.t1.text+' TO '+take_inputs.t2.text
+								text: 'SET Variable Name TO Value'
+								on_touch_up: 
+									if self.selected and self.center_x > 0 and self.center_x<root.center_x: set_var.text = 'SET '+ take_inputs.t1.text+' TO '+take_inputs.t2.text
 								on_touch_up: 
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
@@ -78,10 +88,17 @@
 								t2: t2
 								TextInput:
 									id: t1
-									text: 'Variable Name'
+									hint_text: 'Type in Variable Name here'
 								TextInput:
 									id: t2
-									text: 'Value'
+									hint_text: 'Type in Value here'
+
+							BoxLayout:
+								id: take_n
+								t3: t3
+								TextInput:
+									id: t3
+									hint_text: 'Type in N times here'
 
 								
 
