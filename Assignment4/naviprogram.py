@@ -17,7 +17,7 @@ class NaviProgram(BoxLayout):
 		'''
 		self.program.append(statement)
 		self.add_widget(Button(text=statement))
-		print(self.program)
+		#print(self.program)
 
 	def reset(self):
 		self.program = []
