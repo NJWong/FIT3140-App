@@ -8,11 +8,6 @@ class Interpreter:
 	Boolean = bool
 	List = list
 
-	name = ''
-	value = ''
-
-	global name, value
-
 	def __init__(self):
 		import math, operator as op
 		self.running = False
@@ -56,8 +51,9 @@ class Interpreter:
 			print('Statement not recognised: passing')
 			return 'pass'
 
-if __name__ == '__main__':
-	statement = "DEFINE hello n print('hello'),print('world')"
+# parsing a statement
+def testOne():
+	statement = "FUNCTION hello None print('hello'),print('world')"
 	print(statement)
 
 	# Parse the statement
@@ -73,7 +69,12 @@ if __name__ == '__main__':
 	print(statement_string)
 
 	# parse the arg_string
-	parsed_arg_string = arg_string.split(',')
+	if arg_string == 'None':
+		# there are no args
+		parsed_arg_string = []
+	else:
+		parsed_arg_string = arg_string.split(',')
+	
 	print(parsed_arg_string)
 
 	# parse the statement_string
@@ -85,12 +86,13 @@ if __name__ == '__main__':
 	print(function)
 
 	# add the arguments to the function string
-	for arg in parsed_arg_string:
-		function += (arg)
-		function += (',')
-	print(function)
+	if arg_string != 'None':
+		for arg in parsed_arg_string:
+			function += (arg)
+			function += (',')
+		print(function)
 	# remove the last comma
-	function = function[:-1]
+		function = function[:-1]
 	print(function)
 
 	# close the arguments and add a new line
@@ -101,8 +103,78 @@ if __name__ == '__main__':
 	for s in parsed_statement_string:
 		function += '\t'
 		function += s
+		function += '\n'
 
 	print(function)
+
+	exec(function)
+	hello()
+
+def testTwo():
+	# a program is a series of statements
+	program = ["SET number 3", "FUNCTION hello n if,(n>1),print('hello'),endif,print('world')", "CALL hello number"]
+
+	python_code = ''
+
+	# for each of the statements, convert them to python code
+	for statement in program:
+		# split the statement up
+		split_statement = statement.split()
+		#print(split_statement)
+		if split_statement[0] == 'SET':
+			#print('set')
+			set_statement = '%s = %s\n' % (split_statement[1], split_statement[2])
+			python_code += set_statement
+		elif split_statement[0] == 'FUNCTION':
+			#print('function')
+			function_statement = 'def %s(' % (split_statement[1])
+			# add the args
+			arg_list = split_statement[2].split()
+			for arg in arg_list:
+				function_statement += arg
+				function_statement += ','
+			function_statement = function_statement[:-1]
+			function_statement += '):\n'
+
+			# Add the statements
+			s_list = split_statement[3].split(',')
+			indents = 1
+			print(s_list)
+			for s in s_list:
+				if s == 'if':
+					function_statement += '%sif ' % ('\t'*indents)
+					indents += 1
+				elif s[0] == '(':
+					function_statement += '%s:\n' % (s)
+				elif s == 'endif':
+					indents -= 1
+				else:
+					function_statement += '%s%s\n' % (('\t'*indents), s)
+
+			python_code += function_statement
+			print(function_statement)
+		elif split_statement[0] == 'CALL':
+			#print('call')
+			call_statement = '%s(' % split_statement[1]
+			# add the arguments
+			# TODO handle no args
+			for arg in split_statement[2:]:
+				call_statement += arg
+				call_statement += ','
+			# remove the last comma
+			# TODO handle no args
+			call_statement = call_statement[:-1]
+			call_statement += ')'
+			python_code += call_statement
+
+		#print(python_code)
+		exec(python_code)
+
+
+if __name__ == '__main__':
+	#testOne()
+	testTwo()
+
 
 
 
