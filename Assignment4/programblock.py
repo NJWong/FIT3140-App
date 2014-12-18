@@ -1,6 +1,8 @@
 # Import Kivy functionality
+from kivy.uix.widget import Widget
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-from kivy.properties import BooleanProperty, NumericProperty
+from kivy.properties import BooleanProperty, NumericProperty, StringProperty, ObjectProperty
 
 class ProgramBlock(Button):
 	'''
@@ -10,7 +12,7 @@ class ProgramBlock(Button):
 	selected = BooleanProperty(False)
 	originX = NumericProperty(None)
 	originY = NumericProperty(None)
-
+	
 	def set_origin(self):
 		'''
 		Sets the origin of the block so that it knows where to return to.
@@ -25,6 +27,7 @@ class ProgramBlock(Button):
 		if self.collide_point(touch.x, touch.y):
 			self.set_origin()
 			self.selected = True
+			print('selected!')
 
 	def on_touch_move(self, touch):
 		'''
@@ -40,6 +43,7 @@ class ProgramBlock(Button):
 		'''
 		if self.selected:
 			self.selected = False
+			print('not selected!')
 			self.reset_position()
 
 	def reset_position(self):

@@ -1,5 +1,6 @@
 # Import Kivy functionality
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.textinput import TextInput
 from kivy.properties import ListProperty
 from kivy.uix.button import Button
 
