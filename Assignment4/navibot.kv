@@ -39,15 +39,13 @@
 
 							ProgramBlock:
 								id: move_block
-								text: 'MOVE N Steps'
-								on_touch_up: 
-									if self.selected and self.center_x > 0 and self.center_x<root.center_x: move_block.text = 'MOVE ' + t3.text + ' Steps'
+								text: 'MOVE'
 								on_touch_up:
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							ProgramBlock:
 								id: turn_a
-								text: 'TURN_A N Times'
+								text: 'TURN_A N'
 								on_touch_up: 
 									if self.selected and self.center_x > 0 and self.center_x<root.center_x: turn_a.text = 'TURN_A ' + t3.text + ' Times'
 								on_touch_up:
@@ -55,7 +53,7 @@
 
 							ProgramBlock:
 								id: turn_c
-								text: 'TURN_C N Times'
+								text: 'TURN_C N'
 								on_touch_up: 
 									if self.selected and self.center_x > 0 and self.center_x<root.center_x: turn_c.text = 'TURN_C ' + t3.text + ' Times'
 								on_touch_up:
@@ -76,7 +74,7 @@
 
 							ProgramBlock:
 								id: set_var
-								text: 'SET Variable Name TO Value'
+								text: 'SET Name Value'
 								on_touch_up: 
 									if self.selected and self.center_x > 0 and self.center_x<root.center_x: set_var.text = 'SET '+ take_inputs.t1.text+' TO '+take_inputs.t2.text
 								on_touch_up: 
