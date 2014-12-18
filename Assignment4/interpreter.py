@@ -14,12 +14,11 @@ class Interpreter:
 		# Statements found in NaviProgram.py are mapped to functions to be called in NaviBot.py
 		self.function_dict = {
 		'MOVE':'move_robot()',
-		'TURN_A':'turn_anticlockwise()',
-		'TURN_C': 'turn_clockwise()',
+		'TURN_A':'turn_anticlockwise(%s)',
+		'TURN_C': 'turn_clockwise(%s)',
 		'DISTANCE_W': 'distance_to_wall()',
 		'DISTANCE_G': 'distance_to_goal()',
 		'DISTANCE_G': 'distance_to_goal()',
-		'FUNCTION': 'define_function()'
 		}
 
 		#'SET %s TO %s' % (name,value): 'set_var(%s, %s)' % (name, value) #not sure...
@@ -29,6 +28,7 @@ class Interpreter:
 		self.boolean_dict = {
 		'==':op.eq, '<':op.lt, '>':op.gt
 		}
+		# functions that the interpreter uses definitions, initialisations, or function calls
 		self.interpreter_dict = {
 		'SET':'self.set_variable(%s)',
 		'FUNCTION':'self.define_function(%s)',
@@ -50,8 +50,14 @@ class Interpreter:
 		'''
 		returns the appropriate function to be called inside NaviBot.py
 		'''
+		split_statement = statement.split()
 		try:
-			return 'self.navimaze.'+self.function_dict[statement]
+			if split_statement[0] == 'TURN_A':
+				return 'self.navimaze.'+self.function_dict[split_statement[0]] % split_statement[1]
+			elif split_statement[0] == 'TURN_C':
+				return 'self.navimaze.'+self.function_dict[split_statement[0]] % split_statement[1]
+			else:
+				return 'self.navimaze.'+self.function_dict[statement]
 		except KeyError:
 			print('Statement not recognised: passing')
 			return 'pass'
@@ -100,25 +106,39 @@ class Interpreter:
 		call_statement += ')'
 		return call_statement
 
+	def call_inbuilt_function(self, split_statement):
+		pass
+
 	def interpret(self, program):
 		python_code = ''
 
 		for statement in program:
 			split_statement = statement.split()
-
-			new_statement = eval(self.interpreter_dict[split_statement[0]] % split_statement)
-
+			if split_statement[0] in self.function_dict:
+				try:
+					if split_statement[0] == 'TURN_A':
+						new_statement = 'self.navimaze.%s\n' % (self.function_dict[split_statement[0]] % split_statement[1])
+					elif split_statement[0] == 'TURN_C':
+						new_statement = 'self.navimaze.%s\n' % (self.function_dict[split_statement[0]] % split_statement[1])
+					else:
+						new_statement = 'self.navimaze.%s\n' % (self.function_dict[split_statement[0]])
+				except KeyError:
+					print('Statement not recognised: passing')
+					return 'pass'
+			elif split_statement[0] in self.interpreter_dict:
+				new_statement = eval(self.interpreter_dict[split_statement[0]] % split_statement)
+			
 			python_code += new_statement
 
-		print(python_code)
-		self.run(python_code)
+		#print(python_code)
+		return python_code
 
 	def run(self, python_code):
 		exec(python_code)
 
 if __name__ == '__main__':
 	i = Interpreter()
-	program = ["SET number 3", "FUNCTION hello n if,(n>1),print('hello'),endif,print('world')", "CALL hello number"]
+	program = ["SET number 0", "FUNCTION hello n if,(n>1),print('hello'),endif,print('world')", "CALL hello number"]
 	i.interpret(program)
 
 

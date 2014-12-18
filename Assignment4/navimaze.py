@@ -44,19 +44,19 @@ class NaviMaze(GridLayout):
 			self.maze[self.robot.posY][self.robot.posX] = 'R'
 			self.update_maze()
 
-	def turn_clockwise(self):
+	def turn_clockwise(self, n):
 		'''
 		Function that turns the robot in a clockwise direction.
 		Robot stays in the same position.
 		'''
-		self.robot.turn(1,1) # change this to accommodate 'n' rotations
+		self.robot.turn(1,int(n)) # change this to accommodate 'n' rotations
 
-	def turn_anticlockwise(self):
+	def turn_anticlockwise(self,n):
 		'''
 		Function that turns the robot in an anticlockwise direction.
 		Robot stays in the same position.
 		'''
-		self.robot.turn(0,1) # change this to accommodate 'n' rotations
+		self.robot.turn(0,int(n)) # change this to accommodate 'n' rotations
 
 	def move_robot(self):
 		'''
