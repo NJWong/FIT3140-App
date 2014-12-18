@@ -57,26 +57,69 @@ class Interpreter:
 			return 'pass'
 
 	def set_variable(self, split_statement):
-		print(split_statement)
+		#print(split_statement)
+		set_statement = '%s = %s\n' % (split_statement[1], split_statement[2])
+		return set_statement
 
 	def define_function(self, split_statement):
-		print(split_statement)
+		function_statement = 'def %s(' % (split_statement[1])
+		# add the args
+		arg_list = split_statement[2].split()
+		for arg in arg_list:
+			function_statement += arg
+			function_statement += ','
+		function_statement = function_statement[:-1]
+		function_statement += '):\n'
+
+		# Add the statements
+		s_list = split_statement[3].split(',')
+		indents = 1
+		for s in s_list:
+			if s == 'if':
+				function_statement += '%sif ' % ('\t'*indents)
+				indents += 1
+			elif s[0] == '(':
+				function_statement += '%s:\n' % (s)
+			elif s == 'endif':
+				indents -= 1
+			else:
+				function_statement += '%s%s\n' % (('\t'*indents), s)
+
+		return function_statement
 
 	def call_function(self, split_statement):
-		print(split_statement)
+		call_statement = '%s(' % split_statement[1]
+		# add the arguments
+		# TODO handle no args
+		for arg in split_statement[2:]:
+			call_statement += arg
+			call_statement += ','
+		# remove the last comma
+		# TODO handle no args
+		call_statement = call_statement[:-1]
+		call_statement += ')'
+		return call_statement
 
-	def run(self, program):
+	def interpret(self, program):
 		python_code = ''
 
 		for statement in program:
 			split_statement = statement.split()
 
-			exec(self.interpreter_dict[split_statement[0]] % split_statement)
+			new_statement = eval(self.interpreter_dict[split_statement[0]] % split_statement)
+
+			python_code += new_statement
+
+		print(python_code)
+		self.run(python_code)
+
+	def run(self, python_code):
+		exec(python_code)
 
 if __name__ == '__main__':
 	i = Interpreter()
 	program = ["SET number 3", "FUNCTION hello n if,(n>1),print('hello'),endif,print('world')", "CALL hello number"]
-	i.run(program)
+	i.interpret(program)
 
 
 
