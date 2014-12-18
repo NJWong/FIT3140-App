@@ -30,6 +30,7 @@
 							distance_to_wall: distance_to_wall
 							distance_to_goal: distance_to_goal
 							set_var: set_var
+							take_inputs: take_inputs
 
 							id: naviblocks
 							orientation: 'vertical'
@@ -67,23 +68,21 @@
 
 							ProgramBlock:
 								id: set_var
-								text: 'SET (\'variable name\') TO (\'value\')'
-								on_touch_up: if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
-								
-								BoxLayout:
-									orientation: 'vertical'
-									Label:
-										text1: 'SET '
-									TextInput:
-										id: input1
-										text:
-									Label:
-										text2: ' TO '
-									TextInput:
-										id: input2
-										text:
+								text: 'SET '+ take_inputs.t1.text+' TO '+take_inputs.t2.text
+								on_touch_up: 
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
-								
+							BoxLayout:
+								id: take_inputs
+								t1: t1
+								t2: t2
+								TextInput:
+									id: t1
+									text: 'Variable Name'
+								TextInput:
+									id: t2
+									text: 'Value'
+
 								
 
 

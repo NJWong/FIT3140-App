@@ -14,6 +14,7 @@ from robot import *
 from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout 
 from kivy.properties import ObjectProperty, ListProperty
 from kivy.clock import Clock
 from functools import partial
@@ -30,7 +31,6 @@ class NaviBot(FloatLayout):
 	navimaze = ObjectProperty(None)
 	interpreter = Interpreter()
 	execution_tree = ListProperty(None)
-	naviinput = ObjectProperty(None)
 	
 	def run_program(self, program):
 		'''
