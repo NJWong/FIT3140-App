@@ -37,68 +37,169 @@
 							orientation: 'vertical'
 							padding: 10,10
 
-							ProgramBlock:
-								id: move_block
-								text: 'MOVE'
-								on_touch_up:
-									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
-
-							ProgramBlock:
-								id: turn_a
-								text: 'TURN_A N'
-								on_touch_up: 
-									if self.selected and self.center_x > 0 and self.center_x<root.center_x: turn_a.text = 'TURN_A ' + t3.text
-								on_touch_up:
-									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
-
-							ProgramBlock:
-								id: turn_c
-								text: 'TURN_C N'
-								on_touch_up: 
-									if self.selected and self.center_x > 0 and self.center_x<root.center_x: turn_c.text = 'TURN_C ' + t3.text
-								on_touch_up:
-									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
-
-							ProgramBlock:
-								id: distance_to_wall
-								text: 'DISTANCE_W'
-								on_touch_up:
-									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
-
-							ProgramBlock:
-								id: distance_to_goal
-								text: 'DISTANCE_G'
-								on_touch_up:
-									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.
-									text)
-
-							ProgramBlock:
-								id: set_var
-								text: 'SET Name Value'
-								on_touch_up: 
-									if self.selected and self.center_x > 0 and self.center_x<root.center_x: set_var.text = 'SET ' + take_inputs.t1.text + ' ' + take_inputs.t2.text
-								on_touch_up: 
-									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
-
 							BoxLayout:
-								id: take_inputs
-								t1: t1
-								t2: t2
-								TextInput:
-									id: t1
-									hint_text: 'Type in Variable Name here'
-								TextInput:
-									id: t2
-									hint_text: 'Type in Value here'
+								orientation: 'horizontal'
+
+								ProgramBlock:
+									id: move_block
+									text: 'MOVE'
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+								ProgramBlock:
+									id: turn_a
+									text: 'TURN_A N'
+									on_touch_up: 
+										if self.selected and self.center_x > 0 and self.center_x<root.center_x: turn_a.text = 'TURN_A ' + t3.text
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+								ProgramBlock:
+									id: turn_c
+									text: 'TURN_C N'
+									on_touch_up: 
+										if self.selected and self.center_x > 0 and self.center_x<root.center_x: turn_c.text = 'TURN_C ' + t3.text
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							BoxLayout:
 								id: take_n
 								t3: t3
 								TextInput:
 									id: t3
+									multiline: False
 									hint_text: 'Type in N times here'
 
-								
+							BoxLayout:
+								ProgramBlock:
+									id: distance_to_wall
+									text: 'DISTANCE_W'
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+								ProgramBlock:
+									id: distance_to_goal
+									text: 'DISTANCE_G'
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+							ProgramBlock:
+								id: set_var
+								text: 'SET Name Value'
+								on_touch_up: 
+									if self.selected and self.center_x > 0 and self.center_x<root.center_x: set_var.text = 'SET,' + take_inputs.t1.text + ',' + take_inputs.t2.text
+								on_touch_up: 
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+							BoxLayout:
+								id: take_inputs
+								t1: t1	
+								t2: t2
+								TextInput:
+									id: t1
+									multiline: False
+									hint_text: 'Type in Variable Name here'
+								TextInput:
+									id: t2
+									multiline: False
+									hint_text: 'Type in Value here'
+
+							BoxLayout:
+								ProgramBlock:
+									id: if_cond
+									text: 'If...'
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement('IF')
+
+								ProgramBlock:
+									id: end_if
+									text: 'End If'
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement('ENDIF')
+
+							BoxLayout:
+								ProgramBlock:
+									id: cond
+									text: 'Condition...'
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement('COND')
+
+								ProgramBlock:
+									id: endcond
+									text: 'End Condition'
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement('ENDCOND')
+
+							BoxLayout:
+								ProgramBlock:
+									id: bool_eq
+									text: '(a)==(b)'
+									on_touch_up:
+										if self.selected and self.center_x > 0 and self.center_x<root.center_x: bool_eq.text = t4.text+'=='+t5.text
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement('('+self.text+')')
+
+								ProgramBlock:
+									id: bool_gt
+									text: '(a)>(b)'
+									on_touch_up:
+										if self.selected and self.center_x > 0 and self.center_x<root.center_x: bool_gt.text = t4.text+'>'+t5.text
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement('('+self.text+')')
+
+								ProgramBlock:
+									id: bool_lt
+									text: '(a)<(b)'
+									on_touch_up:
+										if self.selected and self.center_x > 0 and self.center_x<root.center_x: bool_lt.text = t4.text+'<'+t5.text
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement('('+self.text+')')
+
+							BoxLayout:
+								id: boolean_operands
+								t4: t4
+								t5: t5
+								TextInput:
+									id: t4
+									multiline: False
+									hint_text: '(a)'
+								TextInput:
+									id: t5
+									multiline: False
+									hint_text: '(b)'
+
+							BoxLayout:
+								ProgramBlock:
+									id: bool_and
+									text: 'and'
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+								ProgramBlock:
+									id: bool_or
+									text: 'or'
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+								ProgramBlock:
+									id: bool_not
+									text: 'not'
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+							BoxLayout:
+								t6: t6
+								ProgramBlock:
+									id: build_list
+									text: 'BUILD_LIST (list)'
+									on_touch_up:
+										if self.selected and self.center_x > 0 and self.center_x<root.center_x: build_list.text = 'BUILD_LIST '+t6.text
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+								TextInput:
+									id: t6
+									multiline: False
+									hint_text: '(list)'
 
 
 						# NaviProgram

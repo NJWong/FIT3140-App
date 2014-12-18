@@ -27,7 +27,7 @@ class ProgramBlock(Button):
 		if self.collide_point(touch.x, touch.y):
 			self.set_origin()
 			self.selected = True
-			print('selected!')
+			#print('selected!')
 
 	def on_touch_move(self, touch):
 		'''
@@ -43,7 +43,7 @@ class ProgramBlock(Button):
 		'''
 		if self.selected:
 			self.selected = False
-			print('not selected!')
+			#	print('not selected!')
 			self.reset_position()
 
 	def reset_position(self):

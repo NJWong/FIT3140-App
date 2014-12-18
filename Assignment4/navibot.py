@@ -10,6 +10,8 @@ from naviblocks import *
 from navicontrols import *
 from robot import *
 
+from testblock import *
+
 # Import kivy functionality
 from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout
@@ -35,6 +37,8 @@ class NaviBot(FloatLayout):
 		Take the program defined in NaviProgram and pass it to the interpreter to genererate python code.
 		'''
 		python_code = self.interpreter.interpret(program)
+
+		print(python_code)
 
 		self.execute_program(python_code)
 

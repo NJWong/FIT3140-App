@@ -17,8 +17,7 @@ class Interpreter:
 		'TURN_A':'turn_anticlockwise(%s)',
 		'TURN_C': 'turn_clockwise(%s)',
 		'DISTANCE_W': 'distance_to_wall()',
-		'DISTANCE_G': 'distance_to_goal()',
-		'DISTANCE_G': 'distance_to_goal()',
+		'DISTANCE_G': 'distance_to_goal()'
 		}
 
 		#'SET %s TO %s' % (name,value): 'set_var(%s, %s)' % (name, value) #not sure...
@@ -32,7 +31,9 @@ class Interpreter:
 		self.interpreter_dict = {
 		'SET':'self.set_variable(%s)',
 		'FUNCTION':'self.define_function(%s)',
-		'CALL':'self.call_function(%s)'
+		'CALL':'self.call_function(%s)',
+		'IF':'self.create_if_statement(%s)',
+		'LIST':'self.create_list(%s)'
 		}
 
 	def create_execution_tree(self, program):
@@ -81,12 +82,12 @@ class Interpreter:
 		s_list = split_statement[3].split(',')
 		indents = 1
 		for s in s_list:
-			if s == 'if':
+			if s == 'IF':
 				function_statement += '%sif ' % ('\t'*indents)
 				indents += 1
 			elif s[0] == '(':
 				function_statement += '%s:\n' % (s)
-			elif s == 'endif':
+			elif s == 'ENDIF':
 				indents -= 1
 			else:
 				function_statement += '%s%s\n' % (('\t'*indents), s)
@@ -106,6 +107,18 @@ class Interpreter:
 		call_statement += ')'
 		return call_statement
 
+	def create_if_statement(self, split_statement):
+		if_statement = 'if '
+		for s in split_statement[1].split():
+			if s != 'COND' and s != 'ENDCOND':
+				if_statement += s
+		if_statement += ':\n'
+		for s in split_statement[2:]:
+			if s != 'ENDIF':
+				if_statement += ('\tself.navimaze.%s\n' % self.function_dict[s])
+			#print(if_statement)
+		return if_statement
+
 	def call_inbuilt_function(self, split_statement):
 		pass
 
@@ -118,17 +131,21 @@ class Interpreter:
 				try:
 					if split_statement[0] == 'TURN_A':
 						new_statement = 'self.navimaze.%s\n' % (self.function_dict[split_statement[0]] % split_statement[1])
+						python_code += new_statement
 					elif split_statement[0] == 'TURN_C':
 						new_statement = 'self.navimaze.%s\n' % (self.function_dict[split_statement[0]] % split_statement[1])
+						python_code += new_statement
 					else:
 						new_statement = 'self.navimaze.%s\n' % (self.function_dict[split_statement[0]])
+						python_code += new_statement
 				except KeyError:
 					print('Statement not recognised: passing')
 					return 'pass'
-			elif split_statement[0] in self.interpreter_dict:
-				new_statement = eval(self.interpreter_dict[split_statement[0]] % split_statement)
-			
-			python_code += new_statement
+			elif statement.split(',')[0] in self.interpreter_dict:
+				new_statement = eval(self.interpreter_dict[statement.split(',')[0]] % statement.split(','))
+				python_code += new_statement
+			else:
+				print('found nothing...')
 
 		#print(python_code)
 		return python_code
