@@ -98,7 +98,11 @@ if __name__ == '__main__':
 	print(function)
 	
 	# add indentation to the parsed_statement_string
-	
+	for s in parsed_statement_string:
+		function += '\t'
+		function += s
+
+	print(function)
 
 
 
