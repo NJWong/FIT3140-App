@@ -33,6 +33,8 @@ class NaviProgram(BoxLayout):
 		#print(self.variable_dict)
 
 	def merge_conditional(self):
+		# merge into form:
+		# "COND (comparator)(boolean)(comparator) ENDCOND"
 		start_cond_index = self.program.index('COND')
 		end_cond_index = self.program.index('ENDCOND')
 
@@ -49,6 +51,8 @@ class NaviProgram(BoxLayout):
 		self.program.append(cond)
 
 	def merge_if_statement(self):
+		# merge into the form:
+		# IF,(condition),statement,statement,ENDIF
 		start_if_index = self.program.index('IF')
 		end_if_index = self.program.index('ENDIF')
 		temp_if = self.program[start_if_index:]

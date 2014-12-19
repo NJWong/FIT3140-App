@@ -179,7 +179,7 @@ def testOne():
 
 def testTwo():
 	# a program is a series of statements
-	program = ["SET number 3", "FUNCTION hello n if,(n>1),print('hello'),endif,print('world')", "CALL hello number"]
+	program = ["SET number 3", "FUNCTION hello n IF,(n>1),print('hello'),END,print('world')", "CALL hello number"]
 
 	python_code = ''
 
