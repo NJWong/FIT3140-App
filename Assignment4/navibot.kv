@@ -195,9 +195,26 @@
 								on_touch_up:
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
+							ProgramBlock:
+								id: head_list
+								text: 'HEAD_LIST (listname) (variable name)'
+								on_touch_up:
+									if self.selected and self.center_x > 0 and self.center_x<root.center_x: head_list.text = 'HEAD_LIST,'+t6.text+','+t8
+								on_touch_up:
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+							ProgramBlock:
+								id: tail_list
+								text: 'TAIL_LIST (listname) (variable name)'
+								on_touch_up:
+									if self.selected and self.center_x > 0 and self.center_x<root.center_x: tail_list.text = 'TAIL_LIST,'+t6.text+','+t8
+								on_touch_up:
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
 							BoxLayout:
 								t6: t6
 								t7: t7
+								t8: t8
 								TextInput:
 									id: t6
 									multiline: False
@@ -206,35 +223,10 @@
 									id: t7
 									multiline: False
 									hint_text: '(list)'
-
-							ProgramBlock:
-								id: head_list
-								text: 'HEAD_LIST (listname) (variable name)'
-								on_touch_up:
-									if self.selected and self.center_x > 0 and self.center_x<root.center_x: head_list.text = 'HEAD_LIST,'+t8.text+','+t9.text
-								on_touch_up:
-									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
-
-							ProgramBlock:
-								id: tail_list
-								text: 'TAIL_LIST (listname) (variable name)'
-								on_touch_up:
-									if self.selected and self.center_x > 0 and self.center_x<root.center_x: tail_list.text = 'TAIL_LIST,'+t8.text+','+t9.text
-								on_touch_up:
-									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
-
-							BoxLayout:
-								t8: t8
-								t9: t9
 								TextInput:
 									id: t8
 									multiline: False
-									hint_text: '(listname)'
-								TextInput:
-									id: t9
-									multiline: False
 									hint_text: '(variable name)'
-
 
 						# NaviProgram
 						NaviProgram:

@@ -29,7 +29,7 @@ class NaviProgram(BoxLayout):
 		if statement == 'ENDCOND':
 			self.merge_conditional()
 		self.add_widget(Button(text=statement))
-		#print(self.program)
+		print(self.program)
 		#print(self.variable_dict)
 
 	def merge_conditional(self):

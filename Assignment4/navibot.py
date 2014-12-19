@@ -10,8 +10,6 @@ from naviblocks import *
 from navicontrols import *
 from robot import *
 
-from testblock import *
-
 # Import kivy functionality
 from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout

@@ -9,7 +9,6 @@ class Interpreter:
 	List = list
 
 	def __init__(self):
-		import math, operator as op
 		self.running = False
 		# Statements found in NaviProgram.py are mapped to functions to be called in NaviBot.py
 		self.function_dict = {
@@ -19,21 +18,15 @@ class Interpreter:
 		'DISTANCE_W': 'distance_to_wall()',
 		'DISTANCE_G': 'distance_to_goal()'
 		}
-
-		#'SET %s TO %s' % (name,value): 'set_var(%s, %s)' % (name, value) #not sure...
-		self.operator_dict = {
-		'add':op.add, 'sub':op.sub, 'mult':op.mul, 'div':op.div, 'mod':op.mod
-		}
-		self.boolean_dict = {
-		'==':op.eq, '<':op.lt, '>':op.gt
-		}
 		# functions that the interpreter uses definitions, initialisations, or function calls
 		self.interpreter_dict = {
 		'SET':'self.set_variable(%s)',
 		'FUNCTION':'self.define_function(%s)',
 		'CALL':'self.call_function(%s)',
 		'IF':'self.create_if_statement(%s)',
-		'BUILD_LIST':'self.create_list(%s)'
+		'BUILD_LIST':'self.create_list(%s)',
+		'HEAD_LIST':'self.head_list(%s)',
+		'TAIL_LIST':'self.tail_list(%s)'
 		}
 
 	def create_execution_tree(self, program):
@@ -125,11 +118,16 @@ class Interpreter:
 			list_statement += '%s,' % s
 		# remove the last comma
 		list_statement = list_statement[:-1]
-		list_statement += ']'
+		list_statement += ']\n'
 		return list_statement
 
-	def call_inbuilt_function(self, split_statement):
-		pass
+	def head_list(self, split_statement):
+		head_statement = '%s = %s[0]\n' %(split_statement[2], split_statement[1])
+		return head_statement
+
+	def tail_list(self, split_statement):
+		tail_statement = '%s = %s[1:]\n' %(split_statement[2], split_statement[1])
+		return tail_statement
 
 	def interpret(self, program):
 		python_code = ''
