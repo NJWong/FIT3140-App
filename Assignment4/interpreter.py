@@ -33,7 +33,7 @@ class Interpreter:
 		'FUNCTION':'self.define_function(%s)',
 		'CALL':'self.call_function(%s)',
 		'IF':'self.create_if_statement(%s)',
-		'LIST':'self.create_list(%s)'
+		'BUILD_LIST':'self.create_list(%s)'
 		}
 
 	def create_execution_tree(self, program):
@@ -119,6 +119,15 @@ class Interpreter:
 			#print(if_statement)
 		return if_statement
 
+	def create_list(self, split_statement):
+		list_statement = '%s = [' % split_statement[1]
+		for s in split_statement[2:]:
+			list_statement += '%s,' % s
+		# remove the last comma
+		list_statement = list_statement[:-1]
+		list_statement += ']'
+		return list_statement
+
 	def call_inbuilt_function(self, split_statement):
 		pass
 
@@ -127,6 +136,8 @@ class Interpreter:
 
 		for statement in program:
 			split_statement = statement.split()
+
+			# Handling functionality that the NaviBot/NaviMaze uses directly
 			if split_statement[0] in self.function_dict:
 				try:
 					if split_statement[0] == 'TURN_A':
@@ -141,7 +152,10 @@ class Interpreter:
 				except KeyError:
 					print('Statement not recognised: passing')
 					return 'pass'
+
+			# Handling internal logic and functionality for interpreter
 			elif statement.split(',')[0] in self.interpreter_dict:
+				#print('found')
 				new_statement = eval(self.interpreter_dict[statement.split(',')[0]] % statement.split(','))
 				python_code += new_statement
 			else:

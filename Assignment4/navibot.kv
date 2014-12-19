@@ -187,17 +187,23 @@
 									on_touch_up:
 										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
+							ProgramBlock:
+								id: build_list
+								text: 'BUILD_LIST (listname) (list)'
+								on_touch_up:
+									if self.selected and self.center_x > 0 and self.center_x<root.center_x: build_list.text = 'BUILD_LIST,'+t6.text+','+t7.text
+								on_touch_up:
+									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
 							BoxLayout:
 								t6: t6
-								ProgramBlock:
-									id: build_list
-									text: 'BUILD_LIST (list)'
-									on_touch_up:
-										if self.selected and self.center_x > 0 and self.center_x<root.center_x: build_list.text = 'BUILD_LIST '+t6.text
-									on_touch_up:
-										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+								t7: t7
 								TextInput:
 									id: t6
+									multiline: False
+									hint_text: '(listname)'
+								TextInput:
+									id: t7
 									multiline: False
 									hint_text: '(list)'
 

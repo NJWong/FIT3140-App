@@ -59,5 +59,6 @@ class NaviProgram(BoxLayout):
 		self.program.append(if_statement)
 
 	def reset(self):
+		# TODO: reset the dictionaries
 		self.program = []
 		self.clear_widgets()
