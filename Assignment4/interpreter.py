@@ -83,12 +83,12 @@ class Interpreter:
 			elif s == 'ENDIF':
 				indents -= 1
 			else:
-				function_statement += '%s%s\n' % (('\t'*indents), s)
+				function_statement += '%s%s\n' % (('\t'*indents), (statement))
 
 		return function_statement
 
 	def call_function(self, split_statement):
-		call_statement = '%s(' % split_statement[1]
+		call_statement = 'self.%s(' % split_statement[1]
 		# add the arguments
 		# TODO handle no args
 		for arg in split_statement[2:]:
@@ -148,6 +148,10 @@ class Interpreter:
 					python_code += new_statement
 
 			# Handling internal logic and functionality for interpreter
+			elif statement.split()[0] in self.interpreter_dict:
+
+				new_statement = eval(self.interpreter_dict[statement.split()[0]] % statement.split())
+				python_code += new_statement
 			elif statement.split(',')[0] in self.interpreter_dict:
 				#print('found')
 				new_statement = eval(self.interpreter_dict[statement.split(',')[0]] % statement.split(','))
@@ -155,7 +159,7 @@ class Interpreter:
 			else:
 				print('found nothing...')
 
-		#print(python_code)
+		print(python_code)
 		return python_code
 
 	def run(self, python_code):
@@ -163,7 +167,7 @@ class Interpreter:
 
 if __name__ == '__main__':
 	i = Interpreter()
-	program = ["SET number 0", "FUNCTION hello n if,(n>1),print('hello'),endif,print('world')", "CALL hello number"]
+	program = ["SET,number,0", "FUNCTION hello n IF,(n>1),MOVE,ENDIF,MOVE ENDFUNCTION", "CALL hello number"]
 	i.interpret(program)
 
 

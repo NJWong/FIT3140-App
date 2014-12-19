@@ -133,6 +133,28 @@
 									hint_text: '(args)'
 
 							BoxLayout:
+								f_call: f_call
+								f_call_name: f_call_name
+								f_call_args: f_call_args
+								ProgramBlock:
+									id: f_call
+									text: 'CALL (name) (args)'
+									on_touch_up: 
+										if self.selected and self.center_x > 0 and self.center_x<root.center_x: f_call.text = 'CALL ' + f_call_name.text +' '+f_call_args.text
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+								TextInput:
+									id: f_call_name
+									multiline: False
+									hint_text: '(name)'
+
+								TextInput:
+									id: f_call_args
+									multiline: False
+									hint_text: '(args)'
+
+
+							BoxLayout:
 								ProgramBlock:
 									id: if_cond
 									text: 'If...'

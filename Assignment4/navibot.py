@@ -40,7 +40,7 @@ class NaviBot(FloatLayout):
 		'''
 		python_code = self.interpreter.interpret(program)
 
-		print(python_code)
+		#print(python_code)
 
 		self.execute_program(python_code)
 
@@ -52,7 +52,6 @@ class NaviBot(FloatLayout):
 			exec(python_code)
 		except SyntaxError:
 			print('you have syntax errors!')
-
 
 	# OBSOLETE
 	def old_run_program(self, program):
