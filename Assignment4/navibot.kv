@@ -83,21 +83,20 @@
 								id: set_var
 								text: 'SET (Name) (Value)'
 								on_touch_up: 
-									if self.selected and self.center_x > 0 and self.center_x<root.center_x: set_var.text = 'SET,' + take_inputs.t1.text + ',' + take_inputs.t2.text
+									if self.selected and self.center_x > 0 and self.center_x<root.center_x: set_var.text = 'SET,' + take_inputs.t1.text + ',' + take_inputs.input_filter_tf.text
 								on_touch_up: 
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 							BoxLayout:
 								id: take_inputs
-								t1: t1	
-								t2: t2
+								t1: t1
+								input_filter_tf: input_filter_tf	
 								TextInput:
 									id: t1
 									multiline: False
 									hint_text: '(Name)'
-								TextInput:
-									id: t2
-									multiline: False
+								Input_Filter_tf:
+									id: input_filter_tf
 									hint_text: '(Value)'
 
 							BoxLayout:
@@ -187,7 +186,7 @@
 								id: build_list
 								text: 'BUILD_LIST (listname) (list)'
 								on_touch_up:
-									if self.selected and self.center_x > 0 and self.center_x<root.center_x: build_list.text = 'BUILD_LIST,'+t6.text+','+t7.text
+									if self.selected and self.center_x > 0 and self.center_x<root.center_x: build_list.text = 'BUILD_LIST,'+t6.text+','+input_filter_tf_comma.text
 								on_touch_up:
 									if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
@@ -209,15 +208,13 @@
 
 							BoxLayout:
 								t6: t6
-								t7: t7
 								t8: t8
 								TextInput:
 									id: t6
 									multiline: False
 									hint_text: '(listname)'
-								TextInput:
-									id: t7
-									multiline: False
+								Input_Filter_tf_comma:
+									id: input_filter_tf_comma
 									hint_text: '(list)'
 								TextInput:
 									id: t8

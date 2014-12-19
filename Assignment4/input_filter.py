@@ -16,4 +16,24 @@ class Input_Filter(TextInput):
         return super(Input_Filter, self).insert_text(s, from_undo=from_undo)
 		
 
+class Input_Filter_tf(TextInput):
 
+    pat = re.compile('[^t-tf-f0-9]')
+    def insert_text(self, substring, from_undo=False):
+        pat = self.pat
+        if '.' in self.text:
+            s = re.sub(pat, '', substring)
+        else:
+            s = '.'.join([re.sub(pat, '', s) for s in substring.split('.', 1)])
+        return super(Input_Filter_tf, self).insert_text(s, from_undo=from_undo)
+
+class Input_Filter_tf_comma(TextInput):
+
+    pat = re.compile('[^0-9t-tf-f\,]')
+    def insert_text(self, substring, from_undo=False):
+        pat = self.pat
+        if '.' in self.text:
+            s = re.sub(pat, '', substring)
+        else:
+            s = '.'.join([re.sub(pat, '', s) for s in substring.split('.', 1)])
+        return super(Input_Filter_tf_comma, self).insert_text(s, from_undo=from_undo)

@@ -31,6 +31,8 @@ class NaviBot(FloatLayout):
 	interpreter = Interpreter()
 	execution_tree = ListProperty(None)
 	input_filter = ObjectProperty(None)
+	input_filter_tf = ObjectProperty(None)
+	input_filter_tf_comma = ObjectProperty(None)
 	
 	def run_program(self, program):
 		'''
