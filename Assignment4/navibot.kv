@@ -35,7 +35,7 @@
 
 							id: naviblocks
 							orientation: 'vertical'
-							padding: 10,10
+							padding: 5,5
 
 							BoxLayout:
 								orientation: 'horizontal'
@@ -98,6 +98,39 @@
 								Input_Filter_tf:
 									id: input_filter_tf
 									hint_text: '(Value)'
+
+							BoxLayout:
+								ProgramBlock:
+									id: def_function
+									text: 'FUNCTION'
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+								ProgramBlock:
+									id: f_data
+									text: '(f_name) (args)'
+									on_touch_up: 
+										if self.selected and self.center_x > 0 and self.center_x<root.center_x: f_data.text = f_name.text + ' ' + f_args.text + ' '	
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+								ProgramBlock:
+									id: end_function
+									text: 'ENDFUNCTION'
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+							BoxLayout:
+								f_name: f_name
+								f_args: f_args
+								TextInput:
+									id: f_name
+									multiline: False
+									hint_text: '(f_name)'
+								TextInput:
+									id: f_args
+									multiline: False
+									hint_text: '(args)'
 
 							BoxLayout:
 								ProgramBlock:

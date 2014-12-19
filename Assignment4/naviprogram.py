@@ -11,6 +11,7 @@ class NaviProgram(BoxLayout):
 	'''
 	program = ListProperty([])
 	variable_dict = DictProperty({})
+	function_dict = DictProperty({})
 
 	def add_statement(self, statement):
 		'''
@@ -28,9 +29,37 @@ class NaviProgram(BoxLayout):
 			self.merge_if_statement()
 		if statement == 'ENDCOND':
 			self.merge_conditional()
+		if statement == 'ENDFUNCTION':
+			self.merge_function()
 		self.add_widget(Button(text=statement))
 		print(self.program)
 		#print(self.variable_dict)
+
+	def merge_function(self):
+		# merge into form
+		# start:
+		# 'FUNCTION', 'f1 n', 'MOVE', 'ENDFUNCTION'
+		# end:
+		# 'FUNCTION (name) (args) (statement),(statement) ENDFUNCTION'
+
+		start_funct_index = self.program.index('FUNCTION')
+		end_funct_index = self.program.index('ENDFUNCTION')
+
+		temp_funct = self.program[start_funct_index:]
+		self.program = self.program[:start_funct_index]
+		funct = ''
+		for s in temp_funct:
+			if s == 'FUNCTION':
+				funct += '%s ' % s
+			elif s == 'ENDFUNCTION':
+				# remove the last comma
+				funct = funct[:-1]
+				funct += ' %s' % s
+			elif len(s.split()) > 1:
+				funct += '%s ' % s
+			else:
+				funct += '%s,' % s
+		self.program.append(funct)
 
 	def merge_conditional(self):
 		# merge into form:
