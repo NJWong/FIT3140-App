@@ -139,19 +139,15 @@ class Interpreter:
 
 			# Handling functionality that the NaviBot/NaviMaze uses directly
 			if split_statement[0] in self.function_dict:
-				try:
-					if split_statement[0] == 'TURN_A':
-						new_statement = 'self.navimaze.%s\n' % (self.function_dict[split_statement[0]] % split_statement[1])
-						python_code += new_statement
-					elif split_statement[0] == 'TURN_C':
-						new_statement = 'self.navimaze.%s\n' % (self.function_dict[split_statement[0]] % split_statement[1])
-						python_code += new_statement
-					else:
-						new_statement = 'self.navimaze.%s\n' % (self.function_dict[split_statement[0]])
-						python_code += new_statement
-				except KeyError:
-					print('Statement not recognised: passing')
-					return 'pass'
+				if split_statement[0] == 'TURN_A':
+					new_statement = 'self.navimaze.%s\n' % (self.function_dict[split_statement[0]] % split_statement[1])
+					python_code += new_statement
+				elif split_statement[0] == 'TURN_C':
+					new_statement = 'self.navimaze.%s\n' % (self.function_dict[split_statement[0]] % split_statement[1])
+					python_code += new_statement
+				else:
+					new_statement = 'self.navimaze.%s\n' % (self.function_dict[split_statement[0]])
+					python_code += new_statement
 
 			# Handling internal logic and functionality for interpreter
 			elif statement.split(',')[0] in self.interpreter_dict:

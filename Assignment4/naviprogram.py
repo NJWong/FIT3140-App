@@ -21,12 +21,15 @@ class NaviProgram(BoxLayout):
 		if statement.split()[0] == 'SET':
 			# TODO type validation
 			self.variable_dict[statement.split()[1]] = statement.split()[2]
+		if statement.split(',')[0] == 'BUILD_LIST':
+			# TODO type validation
+			self.variable_dict[statement.split(',')[1]] = str(statement.split(',')[2:])
 		if statement == 'ENDIF':
 			self.merge_if_statement()
 		if statement == 'ENDCOND':
 			self.merge_conditional()
 		self.add_widget(Button(text=statement))
-		print(self.program)
+		#print(self.program)
 		#print(self.variable_dict)
 
 	def merge_conditional(self):
@@ -48,8 +51,6 @@ class NaviProgram(BoxLayout):
 	def merge_if_statement(self):
 		start_if_index = self.program.index('IF')
 		end_if_index = self.program.index('ENDIF')
-		#print(start_if_index)
-		#print(end_if_index)
 		temp_if = self.program[start_if_index:]
 		self.program = self.program[:start_if_index]
 		if_statement = ''
@@ -59,6 +60,6 @@ class NaviProgram(BoxLayout):
 		self.program.append(if_statement)
 
 	def reset(self):
-		# TODO: reset the dictionaries
 		self.program = []
+		self.variable_dict = {}
 		self.clear_widgets()
