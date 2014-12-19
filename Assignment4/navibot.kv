@@ -254,6 +254,22 @@
 									multiline: False
 									hint_text: '(variable name)'
 
+							BoxLayout:
+								comment: comment
+								comment_block: comment_block
+								ProgramBlock:
+									id: comment_block
+									text: 'Comment:'
+									on_touch_up:
+										if self.selected and self.center_x > 0 and self.center_x<root.center_x: comment_block.text = 'Comment: '+ comment.text
+									on_touch_up:
+										if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
+
+								TextInput:
+									id: comment
+									multiline: False
+									text_hint: 'your comment'
+
 						# NaviProgram
 						NaviProgram:
 							id: naviprogram

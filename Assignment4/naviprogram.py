@@ -18,10 +18,11 @@ class NaviProgram(BoxLayout):
 		Function that takes a statement and adds it to the program ListProperty.
 		Also adds a Button widget to show the statement exists in the NaviProgram area.
 		'''
-		self.program.append(statement)
-		if statement.split()[0] == 'SET':
+		if statement.split()[0] != 'Comment:':
+			self.program.append(statement)
+		if statement.split(',')[0] == 'SET':
 			# TODO type validation
-			self.variable_dict[statement.split()[1]] = statement.split()[2]
+			self.variable_dict[statement.split(',')[1]] = statement.split(',')[2]
 		if statement.split(',')[0] == 'BUILD_LIST':
 			# TODO type validation
 			self.variable_dict[statement.split(',')[1]] = str(statement.split(',')[2:])
@@ -33,7 +34,7 @@ class NaviProgram(BoxLayout):
 			self.merge_function()
 		self.add_widget(Button(text=statement))
 		print(self.program)
-		#print(self.variable_dict)
+		print(self.variable_dict)
 
 	def merge_function(self):
 		# merge into form
