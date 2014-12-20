@@ -13,21 +13,30 @@ class NaviProgram(BoxLayout):
 	variable_dict = DictProperty({})
 	function_dict = DictProperty({})
 
+	def print_var_dict(self):
+		var_dict = ''
+		for variable in self.variable_dict:
+			var_dict += '%s : %r\n' % (variable, self.variable_dict[variable])
+		return var_dict
+
 	def add_statement(self, statement):
 		'''
 		Function that takes a statement and adds it to the program ListProperty.
 		Also adds a Button widget to show the statement exists in the NaviProgram area.
 		'''
 		# TODO: tidy this abomination up...
-
+		print(self.program)
 		if statement.split()[0] != 'Comment:':
 			self.program.append(statement)
-		if statement.split(',')[0] == 'SET':
+		if statement.split(',')[0] == 'SET_L':
 			# TODO type validation
 			self.variable_dict[statement.split(',')[1]] = statement.split(',')[2]
 		if statement.split(',')[0] == 'BUILD_LIST':
 			# TODO type validation
 			self.variable_dict[statement.split(',')[1]] = str(statement.split(',')[2:])
+		if len(self.program) >= 2:
+			if self.program[-2].split(',')[0] == 'SET_TO' and len(self.program[-2].split(',')) != 3:
+				self.merge_set_to()
 		if statement == 'ENDIF':
 			self.merge_if_statement()
 		if statement == 'ENDCOND':
@@ -36,9 +45,16 @@ class NaviProgram(BoxLayout):
 			self.merge_function()
 		self.add_widget(Button(text=statement))
 
-
 		print(self.program)
 		#print(self.variable_dict)
+
+	def merge_set_to(self):
+		# guarenteed to be the last two elements
+		# merge into form
+		# SET_TO,variable,result
+		set_to = 'SET_TO,%s,%s' % (self.program[-2].split(',')[1], (self.program[-1]))
+		self.program = self.program[:-2]
+		self.program.append(set_to)
 
 	def merge_function(self):
 		# merge into form

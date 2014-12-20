@@ -20,7 +20,8 @@ class Interpreter:
 		}
 		# functions that the interpreter uses definitions, initialisations, or function calls
 		self.interpreter_dict = {
-		'SET':'self.set_variable(%s)',
+		'SET_L':'self.set_variable(%s)',
+		'SET_TO':'self.set_to_variable(%s)',
 		'FUNCTION':'self.define_function(%s)',
 		'CALL':'self.call_function(%s)',
 		'IF':'self.create_if_statement(%s)',
@@ -60,6 +61,18 @@ class Interpreter:
 		#print(split_statement)
 		set_statement = '%s = %s\n' % (split_statement[1], split_statement[2])
 		return set_statement
+
+	def set_to_variable(self, split_statement):
+		print(split_statement)
+		try:
+			set_to_statement = '%s = %s\n' %(split_statement[1],'self.navimaze.'+self.function_dict[split_statement[2]])
+			return set_to_statement
+		except KeyError:
+			try:
+				set_to_statement = '%s = "self.navimaze."+%s\n' %(split_statement[1],self.interpreter_dict[split_statement[2]])
+				return set_to_statement
+			except KeyError:
+				print('not found')
 
 	def define_function(self, split_statement):
 		function_statement = 'def %s(' % (split_statement[1])
@@ -159,7 +172,7 @@ class Interpreter:
 			else:
 				print('found nothing...')
 
-		print(python_code)
+		#print(python_code)
 		return python_code
 
 	def run(self, python_code):
