@@ -27,7 +27,20 @@ class NaviProgram(BoxLayout):
 		# TODO: tidy this abomination up...
 		print(self.program)
 		if statement.split()[0] != 'Comment:':
+			print(statement.split())
+			if statement.split()[0] == 'TURN_A' or statement.split()[0] == 'TURN_C':
+				try:
+					int(statement.split()[1])
+				except:
+					try:
+						variable_dict[statement.split()[1]]
+					except:
+						print('ERROR')
 			self.program.append(statement)
+		if statement.split(',')[0] == 'HEAD_LIST':
+			self.eval_head_list()
+		if statement.split(',')[0] == 'TAIL_LIST':
+			self.eval_tail_list()
 		if statement.split(',')[0] == 'SET_L':
 			# TODO type validation
 			self.variable_dict[statement.split(',')[1]] = statement.split(',')[2]
@@ -46,15 +59,29 @@ class NaviProgram(BoxLayout):
 		self.add_widget(Button(text=statement))
 
 		print(self.program)
-		#print(self.variable_dict)
+		print(self.variable_dict)
+
+	def eval_head_list(self):
+		tmp_head = self.program[-1].split(',')
+		head_statement = '%s[0]' % tmp_head[1]
+		self.program = self.program[:-1]
+		self.program.append(head_statement)
+
+	def eval_tail_list(self):
+		tmp_tail = self.program[-1].split(',')
+		tail_statement = '%s[1:]' % tmp_tail[1]
+		self.program = self.program[:-1]
+		self.program.append(tail_statement)
 
 	def merge_set_to(self):
 		# guarenteed to be the last two elements
 		# merge into form
 		# SET_TO,variable,result
 		set_to = 'SET_TO,%s,%s' % (self.program[-2].split(',')[1], (self.program[-1]))
+		self.variable_dict[self.program[-2].split(',')[1]] =  self.program[-1]# add to variable dictionary
 		self.program = self.program[:-2]
-		self.program.append(set_to)
+		self.program.append(set_to) # append to the program
+
 
 	def merge_function(self):
 		# merge into form

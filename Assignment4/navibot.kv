@@ -4,7 +4,7 @@
 	naviprogram: naviprogram
 	navicontrols: navicontrols
 	navimaze: navimaze
-	input_filter: input_filter
+	#input_filter: input_filter
 
 	BoxLayout:
 		orientation: 'vertical'
@@ -49,7 +49,7 @@
 												id: turn_a
 												text: 'TURN_A (N)'
 												on_touch_up: 
-													if self.selected and self.center_x > 0 and self.center_x<root.center_x: turn_a.text = 'TURN_A ' + input_filter.text
+													if self.selected and self.center_x > 0 and self.center_x<root.center_x: turn_a.text = 'TURN_A ' + n.text
 												on_touch_up:
 													if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
@@ -57,13 +57,18 @@
 												id: turn_c
 												text: 'TURN_C (N)'
 												on_touch_up: 
-													if self.selected and self.center_x > 0 and self.center_x<root.center_x: turn_c.text = 'TURN_C ' + input_filter.text
+													if self.selected and self.center_x > 0 and self.center_x<root.center_x: turn_c.text = 'TURN_C ' + n.text
 												on_touch_up:
 													if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
-										Input_Filter:
-											id: input_filter
-											hint_text: '(N)'
+										TextInput:
+											id: n
+											multiline: False
+											hint_text: '(Name)'
+
+										#Input_Filter:
+											#id: input_filter
+											#hint_text: '(N)'
 
 										BoxLayout:
 											ProgramBlock:
@@ -90,7 +95,7 @@
 												id: set_var
 												text: 'SET_L (Name) (Value)'
 												on_touch_up: 
-													if self.selected and self.center_x > 0 and self.center_x<root.center_x: set_var.text = 'SET,' + take_inputs.t1.text + ',' + take_inputs.t2.text
+													if self.selected and self.center_x > 0 and self.center_x<root.center_x: set_var.text = 'SET_L,' + take_inputs.t1.text + ',' + take_inputs.t2.text
 												on_touch_up: 
 													if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
@@ -274,33 +279,29 @@
 
 										BoxLayout:
 											t6: t6
-											t8: t8
 											TextInput:
 												id: t6
 												multiline: False
-												hint_text: '(listname)'
+												hint_text: '(list name)'
 											Input_Filter_tf_comma:
 												id: input_filter_tf_comma
 												hint_text: '(list)'
-											TextInput:
-												id: t8
-												multiline: False
-												hint_text: '(variable name)'
+
 
 										BoxLayout:
 											ProgramBlock:
 												id: head_list
-												text: 'HEAD_LIST'
+												text: 'HEAD_LIST (list name)'
 												on_touch_up:
-													if self.selected and self.center_x > 0 and self.center_x<root.center_x: head_list.text = 'HEAD_LIST,'+t6.text+','+t8.text
+													if self.selected and self.center_x > 0 and self.center_x<root.center_x: head_list.text = 'HEAD_LIST,'+t6.text
 												on_touch_up:
 													if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 											ProgramBlock:
 												id: tail_list
-												text: 'TAIL_LIST'
+												text: 'TAIL_LIST (list name)'
 												on_touch_up:
-													if self.selected and self.center_x > 0 and self.center_x<root.center_x: tail_list.text = 'TAIL_LIST,'+t6.text+','+t8.text
+													if self.selected and self.center_x > 0 and self.center_x<root.center_x: tail_list.text = 'TAIL_LIST,'+t6.text
 												on_touch_up:
 													if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 

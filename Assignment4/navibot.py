@@ -40,7 +40,7 @@ class NaviBot(FloatLayout):
 		'''
 		self.python_code = self.interpreter.interpret(program)
 
-		print(self.python_code)
+		#print(self.python_code)
 
 		self.execute_program(self.python_code)
 
