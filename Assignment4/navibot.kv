@@ -273,19 +273,25 @@
 											id: build_list
 											text: 'BUILD_LIST (listname) (list)'
 											on_touch_up:
-												if self.selected and self.center_x > 0 and self.center_x<root.center_x: build_list.text = 'BUILD_LIST,'+t6.text+','+input_filter_tf_comma.text
+												if self.selected and self.center_x > 0 and self.center_x<root.center_x: build_list.text = 'BUILD_LIST,'+t6.text+','+input_list.text
 											on_touch_up:
 												if self.selected and self.center_x > root.center_x: naviprogram.add_statement(self.text)
 
 										BoxLayout:
 											t6: t6
+											input_list: input_list
 											TextInput:
 												id: t6
 												multiline: False
 												hint_text: '(list name)'
-											Input_Filter_tf_comma:
-												id: input_filter_tf_comma
+											TextInput:
+												id: input_list
+												multiline: False
 												hint_text: '(list)'
+
+											#Input_Filter_tf_comma:
+												#id: input_filter_tf_comma
+												#hint_text: '(list)'
 
 
 										BoxLayout:
