@@ -20,13 +20,12 @@ class Interpreter:
 		}
 		# functions that the interpreter uses definitions, initialisations, or function calls
 		self.interpreter_dict = {
-		'SET':'self.set_variable(%s)',
+		'SET_L':'self.set_variable(%s)',
+		'SET_TO':'self.set_to_variable(%s)',
 		'FUNCTION':'self.define_function(%s)',
 		'CALL':'self.call_function(%s)',
 		'IF':'self.create_if_statement(%s)',
 		'BUILD_LIST':'self.create_list(%s)',
-		'HEAD_LIST':'self.head_list(%s)',
-		'TAIL_LIST':'self.tail_list(%s)'
 		}
 
 	def create_execution_tree(self, program):
@@ -60,6 +59,19 @@ class Interpreter:
 		#print(split_statement)
 		set_statement = '%s = %s\n' % (split_statement[1], split_statement[2])
 		return set_statement
+
+	def set_to_variable(self, split_statement):
+		print(split_statement)
+		try:
+			set_to_statement = '%s = %s\n' %(split_statement[1],'self.navimaze.'+self.function_dict[split_statement[2]])
+			return set_to_statement
+		except KeyError:
+			try:
+				#set_to_statement = '%s = "self.navimaze."+%s\n' %(split_statement[1], self.interpreter_dict[split_statement[2]])
+				set_to_statement = '%s = %s\n' % (split_statement[1], split_statement[2])
+				return set_to_statement
+			except KeyError:
+				print('not found')
 
 	def define_function(self, split_statement):
 		function_statement = 'def %s(' % (split_statement[1])
@@ -104,12 +116,16 @@ class Interpreter:
 		if_statement = 'if '
 		for s in split_statement[1].split():
 			if s != 'COND' and s != 'ENDCOND':
-				if_statement += s
+				if_statement += ' %s' % s
 		if_statement += ':\n'
 		for s in split_statement[2:]:
 			if s != 'ENDIF':
-				if_statement += ('\tself.navimaze.%s\n' % self.function_dict[s])
-			#print(if_statement)
+				if len(s.split()) > 1:
+					if_statement += ('\tself.navimaze.%s\n' % self.function_dict[s.split()[0]]) % (s.split()[1])
+				else:
+					if_statement += ('\tself.navimaze.%s\n' % self.function_dict[s])
+		
+		#print(if_statement)
 		return if_statement
 
 	def create_list(self, split_statement):
@@ -120,14 +136,6 @@ class Interpreter:
 		list_statement = list_statement[:-1]
 		list_statement += ']\n'
 		return list_statement
-
-	def head_list(self, split_statement):
-		head_statement = '%s = %s[0]\n' %(split_statement[2], split_statement[1])
-		return head_statement
-
-	def tail_list(self, split_statement):
-		tail_statement = '%s = %s[1:]\n' %(split_statement[2], split_statement[1])
-		return tail_statement
 
 	def interpret(self, program):
 		python_code = ''
@@ -159,7 +167,7 @@ class Interpreter:
 			else:
 				print('found nothing...')
 
-		print(python_code)
+		#print(python_code)
 		return python_code
 
 	def run(self, python_code):

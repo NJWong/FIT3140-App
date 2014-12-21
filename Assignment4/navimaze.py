@@ -16,6 +16,7 @@ class NaviMaze(GridLayout):
 	goal_posX = NumericProperty(3) # hard coded for now
 	goal_posY = NumericProperty(3) # hard coded for now
 	generated = BooleanProperty(False)
+	win = BooleanProperty(False)
 	tile_dict = DictProperty({'C':(0,1,0,1), 'W':(1,0,0,1), 'G':(0,0,1,1), 'R':(1,1,1,1)})
 	robot = Robot()
 
@@ -182,6 +183,7 @@ class NaviMaze(GridLayout):
 
 	def show_win(self):
 		# Clear the maze
+		self.win = True
 		self.clear_widgets(self.children)
 		# Replace it with a win message
 		self.add_widget(Label(text='YOU WIN!'))
@@ -193,7 +195,10 @@ class NaviMaze(GridLayout):
 				self.add_widget(Button(text=tile, background_color=self.tile_dict[tile]))
 
 	def reset_robot_position(self):
-		self.maze[self.robot.posY][self.robot.posX] = 'C'
+		if self.win:
+			self.maze[self.robot.posY][self.robot.posX] = 'G'
+		else:	
+			self.maze[self.robot.posY][self.robot.posX] = 'C'
 		self.robot.posX = 0
 		self.robot.posY = 0
 		self.robot.direction = 'E'
