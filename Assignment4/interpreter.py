@@ -56,7 +56,10 @@ class Interpreter:
 			return 'pass'
 
 	def set_variable(self, split_statement):
-		#print(split_statement)
+		'''
+		Function that interprets a set variable statement from NaviProgram
+		Returns the python equivalent '=' statement
+		'''
 		set_statement = '%s = %s\n' % (split_statement[1], split_statement[2])
 		return set_statement
 
@@ -74,6 +77,10 @@ class Interpreter:
 				print('not found')
 
 	def define_function(self, split_statement):
+		'''
+		Function that interprets a define function statement from NaviProgram
+		IMPORTANT: NOT COMPLETED YET
+		'''
 		function_statement = 'def %s(' % (split_statement[1])
 		# add the args
 		arg_list = split_statement[2].split()
@@ -100,6 +107,10 @@ class Interpreter:
 		return function_statement
 
 	def call_function(self, split_statement):
+		'''
+		Function that calls a defined function
+		IMPORTANT: NOT COMPLETED YET
+		'''
 		call_statement = 'self.%s(' % split_statement[1]
 		# add the arguments
 		# TODO handle no args
@@ -113,6 +124,11 @@ class Interpreter:
 		return call_statement
 
 	def create_if_statement(self, split_statement):
+		'''
+		A function that interprets an if-statement from NaviProgram
+		Handles the condition section so that a large boolean expression can be used
+		Returns the python equivalent of the if-statement
+		'''
 		if_statement = 'if '
 		for s in split_statement[1].split():
 			if s != 'COND' and s != 'ENDCOND':
@@ -129,6 +145,10 @@ class Interpreter:
 		return if_statement
 
 	def create_list(self, split_statement):
+		'''
+		Function that interprets a build list statement from NaviProgram
+		Returns the list assignment as python code
+		'''
 		list_statement = '%s = [' % split_statement[1]
 		for s in split_statement[2:]:
 			list_statement += '%s,' % s
@@ -138,6 +158,11 @@ class Interpreter:
 		return list_statement
 
 	def interpret(self, program):
+		'''
+		The important function that takes the program from NaviProgram and interprets it into
+		runnable python code for NaviBot to run.
+		Returns the program as a string of python code.
+		'''
 		python_code = ''
 
 		for statement in program:
@@ -172,11 +197,6 @@ class Interpreter:
 
 	def run(self, python_code):
 		exec(python_code)
-
-if __name__ == '__main__':
-	i = Interpreter()
-	program = ["SET,number,0", "FUNCTION hello n IF,(n>1),MOVE,ENDIF,MOVE ENDFUNCTION", "CALL hello number"]
-	i.interpret(program)
 
 
 
