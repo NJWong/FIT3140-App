@@ -26,40 +26,54 @@ class NaviProgram(BoxLayout):
 		'''
 		# TODO: tidy this abomination up...
 		#print(self.program)
+		add = False
 		if statement.split()[0] != 'Comment:':
 			print(statement.split())
 			if statement.split()[0] == 'TURN_A' or statement.split()[0] == 'TURN_C':
 				try:
 					int(statement.split()[1])
+					self.program.append(statement)
+					add = True
 				except:
 					try:
-						variable_dict[statement.split()[1]]
-					except:
-						print('ERROR')
-			self.program.append(statement)
+						self.variable_dict[statement.split()[1]]
+						self.program.append(statement)
+						add = True
+					except KeyError:
+						print('Not found in variable dictionary')
 		if statement.split(',')[0] == 'HEAD_LIST':
 			self.eval_head_list()
+			add = True
 		if statement.split(',')[0] == 'TAIL_LIST':
 			self.eval_tail_list()
+			add = True
 		if statement.split(',')[0] == 'SET_L':
 			# TODO type validation
 			self.variable_dict[statement.split(',')[1]] = statement.split(',')[2]
+			add = True
 		if statement.split(',')[0] == 'BUILD_LIST':
 			# TODO type validation
 			self.variable_dict[statement.split(',')[1]] = str(statement.split(',')[2:])
+			add = True
 		if len(self.program) >= 2:
 			if self.program[-2].split(',')[0] == 'SET_TO' and len(self.program[-2].split(',')) != 3:
 				self.merge_set_to()
+				add = True
 		if statement == 'ENDIF':
 			self.merge_if_statement()
+			add = True
 		if statement == 'ENDCOND':
 			self.merge_conditional()
+			add = True
 		if statement == 'ENDFUNCTION':
 			self.merge_function()
-		self.add_widget(Button(text=statement))
+			add = True
+		
+		if add:
+			self.add_widget(Button(text=statement))
 
-		#print(self.program)
-		#print(self.variable_dict)
+		print(self.program)
+		print(self.variable_dict)
 
 	def eval_head_list(self):
 		tmp_head = self.program[-1].split(',')
