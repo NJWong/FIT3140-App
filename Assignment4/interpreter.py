@@ -116,7 +116,7 @@ class Interpreter:
 		if_statement = 'if '
 		for s in split_statement[1].split():
 			if s != 'COND' and s != 'ENDCOND':
-				if_statement += s
+				if_statement += ' %s' % s
 		if_statement += ':\n'
 		for s in split_statement[2:]:
 			if s != 'ENDIF':
@@ -124,7 +124,8 @@ class Interpreter:
 					if_statement += ('\tself.navimaze.%s\n' % self.function_dict[s.split()[0]]) % (s.split()[1])
 				else:
 					if_statement += ('\tself.navimaze.%s\n' % self.function_dict[s])
-			#print(if_statement)
+		
+		#print(if_statement)
 		return if_statement
 
 	def create_list(self, split_statement):

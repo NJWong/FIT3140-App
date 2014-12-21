@@ -25,7 +25,7 @@ class NaviProgram(BoxLayout):
 		Also adds a Button widget to show the statement exists in the NaviProgram area.
 		'''
 		# TODO: tidy this abomination up...
-		print(self.program)
+		#print(self.program)
 		if statement.split()[0] != 'Comment:':
 			print(statement.split())
 			if statement.split()[0] == 'TURN_A' or statement.split()[0] == 'TURN_C':
@@ -58,8 +58,8 @@ class NaviProgram(BoxLayout):
 			self.merge_function()
 		self.add_widget(Button(text=statement))
 
-		print(self.program)
-		print(self.variable_dict)
+		#print(self.program)
+		#print(self.variable_dict)
 
 	def eval_head_list(self):
 		tmp_head = self.program[-1].split(',')
@@ -123,6 +123,8 @@ class NaviProgram(BoxLayout):
 				cond += 'COND '
 			elif s == 'ENDCOND':
 				cond += ' ENDCOND'
+			elif s == 'not':
+				cond += ' %s' % s
 			else:
 				cond += '%s' % s
 		self.program.append(cond)
